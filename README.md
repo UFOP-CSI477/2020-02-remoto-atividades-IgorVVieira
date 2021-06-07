@@ -2,11 +2,11 @@
 
 ## Atualize os seus dados:
 
-- Nome:
-- Matrícula:
-- Curso:
-- Semestre/Ano correntes:
-- Link para o seu GitHub:
+- Nome: Igor Vitor Vieira
+- Matrícula: 18.2.8111
+- Curso: Sistemas de Informação
+- Semestre/Ano correntes: 2020.2
+- Link para o seu GitHub: [https://github.com/IgorVVieira](https://github.com/IgorVVieira)
 
 ## [Projeto final:](./Projeto/README.md) 
 

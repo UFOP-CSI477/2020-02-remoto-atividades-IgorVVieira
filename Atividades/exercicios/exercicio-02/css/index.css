@@ -1,0 +1,64 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #282a36;
+}
+
+a {
+    text-decoration: none;
+}
+
+.menu {
+    list-style: none;
+    width: 95%;
+    height: 20px;
+    border: 1px solid #c0c0c0;
+    border-radius: 15px;
+    float: left;
+    font-size: 16px;
+    background-color: #44475a;
+    padding: 15px;
+}
+
+.menu li {
+    position: relative;
+    float: left;
+    padding: 0px 10px;
+}
+
+.menu li a {
+    color: #f8f8f2;
+    padding: 2px 24px;
+    margin: 0;
+    transition: 1s;
+}
+
+.menu li a:hover {
+    opacity: 1;
+    background: #bd93f9;
+    border-radius: 15px;
+    font-weight: bold;
+    color: #282a36;
+}
+
+.img-centro {
+    margin-top: 50px;
+    margin-left: 350px;
+}
+
+.div_github {
+    margin-top: 25px;
+    margin-left: 650px;
+}
+
+.div_github a {
+    color: #bd93f9;
+}
+
+.div_github a:hover {
+    color: #f1fa8c;
+}

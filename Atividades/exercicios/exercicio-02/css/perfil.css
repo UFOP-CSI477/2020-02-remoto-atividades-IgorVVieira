@@ -1,0 +1,40 @@
+.info_user {
+    background-color: #c6c6c6;
+    width: 30%;
+    margin-left: 25px;
+    border: 1px solid;
+    border-radius: 15px;
+    padding: 10px;
+}
+
+.img_perfil {
+    margin-left: 120px;
+    padding: 10px;
+}
+
+.img_perfil img {
+    margin-top: 20px;
+    border: 1px solid;
+    border-radius: 15px;
+}
+
+.voltar {
+    padding: 1px;
+    margin-left: 35px;
+    margin-top: 10px;
+    border: 1px solid;
+    border-radius: 15px;
+    width: 5%;
+    text-align: center;
+    background-color: #c6c6c6;
+}
+
+.voltar a {
+    color: #282a36;
+    font-weight: bold;
+}
+
+.voltar:hover {
+    background-color: #6272a4;
+    color: #f8f8f2;
+}

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de pessoas</title>
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/form.css">
+</head>
+
+<body>
+    <nav>
+        <ul class="menu">
+            <li>
+                <a href="index.html">Página inicial</a>
+            </li>
+            <li>
+                <a href="estados.html">Estados</a>
+            </li>
+            <li>
+                <a href="cidades.html">Cidades</a>
+            </li>
+            <li>
+                <a href="produtos.html">Produtos</a>
+            </li>
+            <li>
+                <a href="pessoas.html">Pessoas</a>
+            </li>
+            <li>
+                <a href="cadastro.html">Cadastro</a>
+            </li>
+            <li>
+                <a href="relatorio.html">Relatório</a>
+            </li>
+            <li>
+                <a href="compras.html">Compras</a>
+            </li>
+            <li>
+                <a href="perfil.html">Perfil</a>
+            </li>
+            <li>
+                <a href="">Sair</a>
+            </li>
+        </ul>
+    </nav>
+
+    <h1>Cadastro de pessoa</h1>
+    <div class="div_form">
+        <form method="POST" action="">
+            <div class="div_input">
+                <label for="nome">Nome</label>
+                <input type="text" name="nome" id="nome" required>
+            </div>
+
+            <div class="div_input">
+                <label for="idadade">Idade</label>
+                <input type="number" name="idade" id="idade" required min="0" max="115">
+            </div>
+
+            <div class="div_input">
+                <label for="cpf">CPF</label>
+                <input type="text" name="cpf" id="cpf" min="11" max="11">
+            </div>
+
+            <div class="div_input">
+                <label>Gênero:</label>
+                <div>
+                    <input value="Masculino" type="radio" name="genero" id="masculino">
+                    <label for="masculino">Masculino</label>
+                </div>
+                <div>
+                    <input value="Feminino" type="radio" name="genero" id="feminino">
+                    <label for="feminino">Feminino</label>
+                </div>
+                <div>
+                    <input value="Outro" type="radio" name="genero" id="outro">
+                    <label for="feminino">Outro</label>
+                </div>
+            </div>
+
+            <div class="div_input">
+                <label for="estado">Estado</label>
+                <input type="text" name="estado" id="estado">
+            </div>
+
+            <div class="div_input">
+                <label for="cidade">Cidade</label>
+                <input type="text" name="cidade" id="cidade">
+            </div>
+
+            <div class="div_input">
+                <label for="logradouro">Logradouro</label>
+                <input type="text" name="logradouro" id="logradouro" required>
+            </div>
+
+            <div class="div_input">
+                <label for="bairro">Bairro</label>
+                <input type="text" name="bairro" id="bairro" required>
+            </div>
+
+            <div class="div_input">
+                <label for="numero_casa">Número</label>
+                <input type="text" name="numero_casa" id="numero_casa" required>
+            </div>
+
+            <div class="div_input">
+                <label for="celular">Celular</label>
+                <input type="text" name="celular" id="celular" required>
+            </div>
+
+            <div class="div_input">
+                <label for="email">Email</label>
+                <input type="email" name="email" id="email" required>
+            </div>
+            <button class="btn_success" type="submit">Cadastrar</button>
+        </form>
+    </div>
+
+    <div class="voltar">
+        <a href="index.html">Voltar</a>
+    </div>
+</body>
+
+</html>

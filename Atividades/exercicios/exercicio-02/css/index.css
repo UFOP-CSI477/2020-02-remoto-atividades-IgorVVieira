@@ -62,3 +62,16 @@ a {
 .div_github a:hover {
     color: #f1fa8c;
 }
+
+.voltar {
+   margin-top: 15px;
+   margin-left: 50px;  
+}
+
+.voltar a {
+    color: #c6c6c6;
+}
+
+.voltar a:hover {
+    color: darkorchid;
+}

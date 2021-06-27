@@ -23,13 +23,13 @@
                     <a class="nav-link" href="cadastro.html">Cadastro</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Relatório</a>
+                    <a class="nav-link" href="relatorio.html">Relatório</a>
                 </li>
             </ul>
         </div>
     </nav>
     <div class="container">
-        <div class="col-md-6">
+        <div class="col-lg-6">
             <h1 class="text-dark text-center">Cadastro de pessoa</h1>
             <div class="p-2 bg-light bg-gradient rounded">
                 <form method="POST" action="">
@@ -45,29 +45,29 @@
 
                     <div class="form-group">
                         <label for="cpf">CPF</label>
-                        <input class="form-control" type="text" name="cpf" id="cpf" min="11" max="11">
+                        <input class="form-control" type="text" name="cpf" id="cpf" min="11" max="11" required>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group form-ckeck">
                         <label>Gênero:</label>
                         <div>
-                            <input value="Masculino" type="radio" name="genero" id="masculino">
-                            <label for="masculino">Masculino</label>
+                            <input class="form-check-input" value="Masculino" type="radio" name="genero" id="masculino" required>
+                            <label class="form-check-label" for="masculino">Masculino</label>
                         </div>
                         <div>
-                            <input value="Feminino" type="radio" name="genero" id="feminino">
-                            <label for="feminino">Feminino</label>
+                            <input class="form-check-input" value="Feminino" type="radio" name="genero" id="feminino" required>
+                            <label class="form-check-label" for="feminino">Feminino</label>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label for="estado">Estado</label>
-                        <input class="form-control" type="text" name="estado" id="estado">
+                        <input class="form-control" type="text" name="estado" id="estado" required>
                     </div>
 
                     <div class="form-group">
                         <label for="cidade">Cidade</label>
-                        <input class="form-control" type="text" name="cidade" id="cidade">
+                        <input class="form-control" type="text" name="cidade" id="cidade" required>
                     </div>
 
                     <div class="form-group">

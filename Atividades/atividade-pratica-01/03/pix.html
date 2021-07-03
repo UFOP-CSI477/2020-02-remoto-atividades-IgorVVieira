@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <title>Pix</title>
+</head>
+
+<body onload="carregarBancos()" class="bg-secondary">
+    <div class="container">
+        <div class="col-lg-6">
+            <h1 class="text-center">PIX</h1>
+            <form action="">
+                <div class="form-group">
+                    <label for="tipo_operacao">Tipo da operação</label>
+                    <select class="form-select" name="tipo_operacao" id="tipo_operacao">
+                        <option value="" disabled selected>Selecione</option>
+                        <option value="enviar">Enviar</option>
+                        <option value="receber">Receber</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="tipo_chave">Tipo de chave</label>
+                    <select onchange="validarChave(this)" class="form-select" name="tipo_chave" id="tipo_chave">
+                        <option value="" disabled selected>Selecione</option>
+                        <option value="cpf">CPF</option>
+                        <option value="cnpj">CNPJ</option>
+                        <option value="email">E-mail</option>
+                        <option value="celular">Celular</option>
+                        <option value="chave_aleatoria">Chave Aleatória</option>
+                    </select>
+                </div>
+                <div id="div_chave" class="form-group d-none">
+                    <label id="label_chave" for="chave"></label>
+                    <input id="chave" class="form-control" type="text" name="chave">
+                </div>
+                <div class="form-group">
+                    <label for="bancos">Banco</label>
+                    <select class="form-select" name="bancos" id="bancos">
+                        <option value="" disabled selected>Selecione</option>
+                    </select>
+                </div>
+                <div class="row">
+                    <div class="form-group col-6">
+                        <label for="valor">Valor</label>
+                        <input class="form-control" type="text" name="valor" id="valor" placeholder="50.00">
+                    </div>
+                    <div class="form-group col-6">
+                        <label for="data_envio">Data de envio</label>
+                        <input id="data_envio" name="data_envio" class="form-control" type="date">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <button onclick="finalizarPix()" type="button" class="btn btn-success">Finalizar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="pix.js"></script>
+</body>
+
+</html>

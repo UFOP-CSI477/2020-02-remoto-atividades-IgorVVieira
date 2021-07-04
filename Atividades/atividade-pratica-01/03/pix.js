@@ -1,6 +1,5 @@
 function preencherBancos(data) {
     const select = document.getElementById('bancos');
-    limparSelect(select);
     for (const i in data) {
         const { ispb, fullName } = data[i];
         const option = document.createElement('option');
@@ -84,11 +83,5 @@ function validarChave(select) {
     else {
         chave.setAttribute('placeholder', '38811835315');
         labelChave.innerHTML = 'Chave aleatória';
-    }
-}
-
-function limparSelect(select) {
-    while (select.length > 1) {
-        select.remove(1);
     }
 }

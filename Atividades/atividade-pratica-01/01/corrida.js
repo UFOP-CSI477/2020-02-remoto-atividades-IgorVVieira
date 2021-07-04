@@ -1,5 +1,3 @@
-'use strict';
-
 const competidores = [];
 
 class Competidor {

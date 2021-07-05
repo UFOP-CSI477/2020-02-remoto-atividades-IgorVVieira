@@ -44,6 +44,7 @@ function finalizar() {
         mediaKm = parseFloat(kmTotal / resultado.length).toFixed(2);
         mediaKmL = parseFloat(KmLTotal / resultado.length).toFixed(2);
         criarListaFinalizada(combustivelTotal, kmTotal, mediaConsumo, mediaKm, mediaKmL);
+        disabledButtons();
     }
 }
 
@@ -91,4 +92,9 @@ function criarListaFinalizada(combustivelTotal, kmTotal, mediaConsumo, mediaKm, 
     listResultado.appendChild(liMediaKmL);
     listResultado.appendChild(document.createElement('hr'))
     divResultado.classList.remove('d-none');
+}
+
+function disabledButtons() {
+    document.getElementById('btnAdd').setAttribute('disabled', true);
+    document.getElementById('btnFinalizar').setAttribute('disabled', true);
 }

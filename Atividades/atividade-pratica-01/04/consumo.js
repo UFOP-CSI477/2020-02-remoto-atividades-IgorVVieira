@@ -37,7 +37,7 @@ function finalizar() {
         let mediaKmL = 0;
         resultado.forEach(result => {
             combustivelTotal += parseFloat(result.combustivel);
-            kmTotal += parseFloat(result.km).toFixed(2);
+            kmTotal += parseFloat(result.km);
             KmLTotal += parseFloat(result.desempenhoKm());
         });
         mediaConsumo = combustivelTotal / resultado.length;

@@ -12,18 +12,20 @@
 </head>
 
 <body class="bg-secondary">
-    <div class="container my-4">
-        <div class="calculator card">
+    <!-- Este exercício foi feito com base no layout abaixo, mas somente o layout, toda funcionalidade não foi utilizada -->
+    <!-- https://mdbootstrap.com/snippets/jquery/ascensus/456902#js-tab-view -->
+    <div class="container">
+        <div class="calculadora border border-secondary card">
             <form action="">
-                <input id="tela" type="text" class="calculator-screen z-depth-1" value="" disabled />
-                <div class="calculator-keys">
-                    <button onclick="addValores(this)" id="mais" type="button" class="operator btn btn-info"
+                <input id="tela" type="text" class="tela_calculadora bg-dark text-light" value="" disabled>
+                <div class="calculadora-keys p-5">
+                    <button onclick="addValores(this)" id="mais" type="button" class="rounded-circle btn btn-info"
                         value="+">+</button>
-                    <button onclick="addValores(this)" id="menos" type="button" class="operator btn btn-info"
+                    <button onclick="addValores(this)" id="menos" type="button" class="rounded-circle btn btn-info"
                         value="-">-</button>
-                    <button onclick="addValores(this)" id="multiplicar" type="button" class="operator btn btn-info"
-                        value="*">&times;</button>
-                    <button onclick="addValores(this)" id="dividir" type="button" class="operator btn btn-info"
+                    <button onclick="addValores(this)" id="multiplicar" type="button"
+                        class="rounded-circle btn btn-info" value="*">&times;</button>
+                    <button onclick="addValores(this)" id="dividir" type="button" class="rounded-circle btn btn-info"
                         value="/">&divide;</button>
 
                     <button onclick="addValores(this)" id="7" type="button" value="7"
@@ -54,7 +56,7 @@
                     <button onclick="limparValores()" id="limpar" type="button"
                         class="all-clear function btn btn-danger btn-sm" value="all-clear">AC</button>
 
-                    <button onclick="calcular()" type="button" class="equal-sign operator btn btn-success"
+                    <button onclick="calcular()" type="button" class="rounded-left equal-sign btn btn-success"
                         value="=">=</button>
                 </div>
             </form>

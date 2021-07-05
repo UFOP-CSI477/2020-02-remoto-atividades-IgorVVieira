@@ -17,24 +17,22 @@ function limparValores() {
 function addValores(input) {
     const valor = document.getElementById(input.id).value;
     const tela = document.getElementById('tela');
-    if (validaInput()) {
-        if (operador) {
-            if (operadores.indexOf(valor) == -1) {
-                valor2 += valor;
-                tela.value += valor;
-            } else {
-                operador = valor;
-                tela.value = '';
-            }
+    if (operador) {
+        if (operadores.indexOf(valor) == -1) {
+            valor2 += valor;
+            tela.value += valor;
         } else {
-            console.log(operadores.indexOf(valor))
-            if (operadores.indexOf(valor) == -1) {
-                valor1 += valor;
-                tela.value += valor;
-            } else {
-                operador = valor;
-                tela.value = '';
-            }
+            operador = valor;
+            tela.value = '';
+        }
+    } else {
+        console.log(operadores.indexOf(valor))
+        if (operadores.indexOf(valor) == -1) {
+            valor1 += valor;
+            tela.value += valor;
+        } else {
+            operador = valor;
+            tela.value = '';
         }
     }
 }

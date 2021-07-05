@@ -12,7 +12,6 @@ class Competidor {
 function salvarCompetidor() {
     const nome = document.getElementById('nome').value;
     const tempo = document.getElementById('tempo').value;
-
     if (nome && tempo) {
         const competidor = new Competidor(nome, tempo, Competidor.largada++);
         competidores.push(competidor);

@@ -2,8 +2,6 @@
 
 namespace App\Database;
 
-use App\Database\ApadaterInterface;
-
 class Connection
 {
     private $adapter;

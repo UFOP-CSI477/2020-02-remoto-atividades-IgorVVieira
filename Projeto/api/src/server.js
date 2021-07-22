@@ -1,11 +1,7 @@
-import express from 'express';
 import 'dotenv/config';
+import app from './app';
 
-import './database';
-
-const port = process.env.PORT;
-const app = express();
-app.use(express.json());
+const port = 3333 || process.env.PORT;
 
 app.listen(port, () => {
     console.log(`Servidor rodando na porta: ${port}`);

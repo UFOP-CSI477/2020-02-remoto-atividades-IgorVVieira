@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Controllers;
+namespace App\controllers;
 
 use App\Models\Produto;
 
-class ProdutoController implements ControllerInterface
+class ProductController implements ControllerInterface
 {
     public function index()
     {

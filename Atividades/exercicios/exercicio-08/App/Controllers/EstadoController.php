@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Controllers\ControllerInterface;
+use App\controllers\ControllerInterface;
 
 class EstadoController implements ControllerInterface
 {

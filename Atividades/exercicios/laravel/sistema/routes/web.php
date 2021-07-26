@@ -2,15 +2,13 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Models\Produto;
+use App\Http\Controllers\ProdutoController;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/produtos', function () {
-    $produtos = Produto::all();
-    return view('produto.index', ['produtos' => $produtos]);
-});
+Route::get('/produtos', [ProdutoController::class, 'index']);
 
 Route::get('/produto/{id}', function ($id) {
     $produto = Produto::findOrFail($id);

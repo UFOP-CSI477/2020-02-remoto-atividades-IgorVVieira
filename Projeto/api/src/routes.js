@@ -1,6 +1,7 @@
 import { Router } from "express";
 import 'express-group-routes';
 
+import SessionController from "./App/Controllers/SessionController";
 import UserController from "./App/Controllers/UserController";
 import DisciplinaController from './App/Controllers/DisciplinaController';
 import ProvaController from "./App/Controllers/ProvaController";
@@ -9,7 +10,9 @@ import MensagemController from "./App/Controllers/MensagemController";
 const routes = Router();
 
 routes.group('/users', (route) => {
-    route.get('/', UserController.index);
+    route.get('/', SessionController.verifyJwt, UserController.index);
+    route.post('/', UserController.store);
+    route.post('/login', UserController.login);
 });
 
 routes.group('/disciplinas', (route) => { });

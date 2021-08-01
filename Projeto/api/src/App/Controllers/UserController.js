@@ -1,4 +1,4 @@
-import User from "../Models/User";
+import User from '../Models/User';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 
@@ -37,10 +37,17 @@ class UserController {
         }
     }
 
-    async show(reqest, response) {
+    async show(request, response) {
         try {
-        } catch (error) {
+            const { id } = request.params;
+            const user = await User.findByPk(id);
 
+            if (!user) {
+                return response.status(400).json({ error: 'User does not exist' })
+            }
+            return response.json(user);
+        } catch (error) {
+            return response.status(500).json({ 'Erro': error });
         }
     }
 
@@ -60,9 +67,52 @@ class UserController {
         }
     }
 
-    async update(request, response) { }
+    async update(request, response) {
+        try {
+            const { id } = request.params;
+            const { nome, email, matricula, senha } = request.body;
 
-    async destroy(request, response) { }
+            const user = await User.update(
+                {
+                    nome,
+                    email,
+                    matricula,
+                    senha,
+                },
+                {
+                    returning: true,
+                    where: {
+                        id,
+                    },
+                });
+
+            if (!user) {
+                return response.status(400).json({ error: 'User not found' });
+            }
+            return response.jsn(user);
+        } catch (error) {
+            return response.status(500).json({ 'Erro': error });
+        }
+    }
+
+    async destroy(request, response) {
+        try {
+            const { id } = request.params;
+
+            const user = await User.destroy({
+                where: {
+                    id,
+                },
+            });
+
+            if (!user) {
+                return response.status(400).json({ error: 'User not found' });
+            }
+            return response.status(200);
+        } catch (error) {
+            return response.status(500).json({ 'Erro': error });
+        }
+    }
 }
 
 export default new UserController;

@@ -10,5 +10,5 @@
 
 ## [Projeto final:](./Projeto/README.md) 
 
-Apresente uma breve descrição do seu projeto.
-
+## Gestão acadêmica  
+Possibilidade de que cada aluno possa cadastrar disciplinas e atividades avaliativas relacionadas, tendo controle de notas e datas, também com a possibilidade de trocar mensagens com outros alunos que cursam a mesma disciplina.

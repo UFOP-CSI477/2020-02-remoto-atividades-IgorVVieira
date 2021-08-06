@@ -9,7 +9,7 @@ import MensagemController from "./App/Controllers/MensagemController";
 
 const routes = Router();
 
-route.post('/login', UserController.login);
+route.post('/login', SessionController.login);
 
 routes.group('/users', (route) => {
     route.get('/', SessionController.verifyJwt, UserController.index);

@@ -1,41 +1,51 @@
 import React, { useState } from 'react';
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
-import { toast } from 'react-toastify'
+import { Form, Button } from 'react-bootstrap';
+import { toast } from 'react-toastify';
+import { useHistory } from 'react-router-dom';
 
 import './Login.css';
 
 import api from '../../services/api';
+import { login } from '../../services/auth';
 
 const Login = () => {
-    const [matricula, setMatricula] = useState("");
-    const [password, setPassword] = useState("");
+    const [matricula, setMatricula] = useState('');
+    const [password, setPassword] = useState('');
 
-    function handleSubmit(event) {
+    const history = useHistory();
+
+    async function handleSubmit(event) {
         event.preventDefault();
-        const data = {
-            matricula, password,
+        try {
+            const response = await api.post('/login', { matricula, password });
+            toast.success('Login realizado com sucecesso.', {
+                position: "top-center",
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: 0,
+            });
+            login(response.data);
+            console.log(response.data);
+            history.push('/teste');
+        } catch (error) {
+            toast.error('Login ou senha inválidos. Tente novamente.', {
+                position: "top-center",
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: 0,
+            });
         }
-        toast.success('Login realizado com sucecesso.', {
-            position: "top-center",
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: 0,
-        });
-        // try {
-        //     const response = await api.post('/users/login', data);
-        //     console.log(response);
-        // } catch (error) {
-
-        // }
     }
 
     return (
-        <div className="Login">
+        <div className="Form">
             <Form onSubmit={handleSubmit}>
-                <Form.Group size="lg" controlId="matricula">
+                <h1 className="text-center text-light">Login</h1>
+                <Form.Group controlId="matricula" className="text-light">
                     <Form.Label>Matrícula</Form.Label>
                     <Form.Control
                         autoFocus
@@ -45,7 +55,7 @@ const Login = () => {
                         onChange={(e) => setMatricula(e.target.value)}
                     />
                 </Form.Group>
-                <Form.Group size="lg" controlId="password">
+                <Form.Group controlId="password" className="text-light">
                     <Form.Label>Senha</Form.Label>
                     <Form.Control
                         type="password"
@@ -54,7 +64,7 @@ const Login = () => {
                         onChange={(e) => setPassword(e.target.value)}
                     />
                 </Form.Group>
-                <Button className="mt-2" block size="lg" type="submit">
+                <Button variant="success" className="mt-2" block type="submit">
                     Login
                 </Button>
             </Form>

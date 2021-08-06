@@ -18,7 +18,7 @@ class ProvaController {
         }
     }
 
-    static show(request, response) {
+    async show(request, response) {
         try {
             const { id } = request.params;
             const prova = await Prova.findByPk(id);

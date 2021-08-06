@@ -1,9 +1,15 @@
 @media all and (min-width: 480px) {
-    .Login {
-      padding: 60px 0;
+    .Form {
+      border: 2px solid chartreuse;
+      border-radius: 10px;
+      max-width: 500px;
+      margin: 30px auto;
+      overflow: auto;
+      min-height: 300px;
+      padding: 30px;
     }
   
-    .Login form {
+    .Form form {
       margin: 0 auto;
       max-width: 320px;
     }

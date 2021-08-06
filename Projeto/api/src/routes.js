@@ -9,10 +9,11 @@ import MensagemController from "./App/Controllers/MensagemController";
 
 const routes = Router();
 
+route.post('/login', UserController.login);
+
 routes.group('/users', (route) => {
     route.get('/', SessionController.verifyJwt, UserController.index);
     route.post('/', UserController.store);
-    route.post('/login', UserController.login);
 });
 
 routes.group('/disciplinas', (route) => { });

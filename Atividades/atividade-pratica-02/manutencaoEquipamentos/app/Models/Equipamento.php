@@ -8,4 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class Equipamento extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'nome',
+    ];
+
+    public function registros()
+    {
+        return $this->hasMany(Registro::class, 'equipamento_id');
+    }
 }

@@ -4,27 +4,42 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Equipamento;
+use App\Models\Registro;
 
 class EquipamentoController extends Controller
 {
     public function index()
     {
         $equipamentos = Equipamento::all();
+        $manutencoes = Registro::with('equipamento', 'user')->get();
+
+        return view('index', ['equipamentos' => $equipamentos, 'manutencoes' => $manutencoes]);
+    }
+
+    public function equipamentosAdm()
+    {
+        $equipamentos = Equipamento::with('registros')->get();
+        return view('equipamento.index', ['equipamentos' => $equipamentos]);
     }
 
     public function create()
     {
-        //
+        return view('equipamento.create');
     }
 
     public function store(Request $request)
     {
         try {
-            $equipamento = Equipamento::create([
+            Equipamento::create([
                 'nome' => $request->nome
             ]);
+
+            $request->session()->flash('success', 'Equipamento cadastrado com sucesso.');
+            return redirect()->route('sistema.equipamento.index');
         } catch (\Throwable $th) {
-            throw $th;
+            report($th);
+            $request->session()->flash('error', 'Erro ao cadastrar equipamento.');
+            return redirect()->back();
         }
     }
 

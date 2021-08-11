@@ -3,33 +3,39 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Registro;
+use App\Models\{Registro, Equipamento};
 use Illuminate\Support\Facades\Auth;
 
 class RegistroController extends Controller
 {
     public function index()
     {
-        $equipamentos = Registro::with('registro');
+        $manutencoes = Registro::with('equipamento')->get();
+        return view('manutencoes.index', ['manutencoes' => $manutencoes]);
     }
 
     public function create()
     {
-        //
+        $equipamentos = Equipamento::all();
+        return view('manutencoes.create', ['equipamentos' => $equipamentos]);
     }
 
     public function store(Request $request)
     {
         try {
-            $registro = Registro::create([
+            Registro::create([
                 'equipamento_id' => $request->equipamento_id,
                 'user_id' => Auth::user()->id,
                 'descricao' => $request->descricao,
                 'data_limite' => $request->data_limite,
                 'tipo' => $request->tipo,
             ]);
+            $request->session()->flash('success', 'Registro cadastrado com sucesso.');
+            return redirect()->route('sistema.registro.index');
         } catch (\Throwable $th) {
-            throw $th;
+            report($th);
+            $request->session()->flash('error', 'Houve um erro ao cadastrar o registro.');
+            return redirect()->back();
         }
     }
 
@@ -54,7 +60,7 @@ class RegistroController extends Controller
                 'tipo' => $request->tipo,
             ]);
         } catch (\Throwable $th) {
-            throw $th;
+            report($th);
         }
     }
 
@@ -63,7 +69,7 @@ class RegistroController extends Controller
         try {
             $registro = Registro::findOrFail($id)->delet();
         } catch (\Throwable $th) {
-            throw $th;
+            report($th);
         }
     }
 }

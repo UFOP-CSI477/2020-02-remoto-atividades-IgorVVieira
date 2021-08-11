@@ -10,11 +10,11 @@ class CreateRegistrosTable extends Migration
     {
         Schema::create('registros', function (Blueprint $table) {
             $table->id();
-            $table->foreign('equipamento_id')->references('id')->on('equipamentos')->onUpdate('cascade')->onDelete('cascade');
-            $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('equipamento_id')->constrained('equipamentos')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade')->onUpdate('cascade');
             $table->string('descricao', 191);
             $table->date('data_limite');
-            $table->integer('tipo', 11);
+            $table->integer('tipo')->default(0);
             $table->timestamps();
         });
     }

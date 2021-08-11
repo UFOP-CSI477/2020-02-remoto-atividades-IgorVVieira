@@ -18,16 +18,15 @@
         href="{{ asset('assets/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}">
     <!-- iCheck -->
     <link rel="stylesheet" href="{{ asset('assets/icheck-bootstrap/icheck-bootstrap.min.css') }}">
-    <!-- JQVMap -->
-    <link rel="stylesheet" href="{{ asset('assets/jqvmap/jqvmap.min.css') }}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('assets/dist/css/adminlte.min.css') }}">
     <!-- overlayScrollbars -->
     <link rel="stylesheet" href="{{ asset('assets/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
-    <!-- Daterange picker -->
-    <link rel="stylesheet" href="{{ asset('assets/daterangepicker/daterangepicker.css') }}">
     <!-- summernote -->
     <link rel="stylesheet" href="{{ asset('assets/summernote/summernote-bs4.min.css') }}">
+
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css">
+
     @yield('styles')
 </head>
 
@@ -44,13 +43,8 @@
 </script>
 <!-- Bootstrap 4 -->
 <script src="{{ asset('assets/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-<!-- ChartJS -->
-<script src="{{ asset('assets/chart.js/Chart.min.js') }}"></script>
 <!-- Sparkline -->
 <script src="{{ asset('assets/sparklines/sparkline.js') }}"></script>
-<!-- JQVMap -->
-<script src="{{ asset('assets/jqvmap/jquery.vmap.min.js') }}"></script>
-<script src="{{ asset('assets/jqvmap/maps/jquery.vmap.usa.js') }}"></script>
 <!-- jQuery Knob Chart -->
 <script src="{{ asset('assets/jquery-knob/jquery.knob.min.js') }}"></script>
 <!-- daterangepicker -->
@@ -64,10 +58,24 @@
 <script src="{{ asset('assets/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
 <!-- AdminLTE App -->
 <script src="{{ asset('assets/dist/js/adminlte.js') }}"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="{{ asset('assets/dist/js/demo.js') }}"></script>
-<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="{{ asset('assets/dist/js/pages/dashboard.js') }}"></script>
-@yield('scrips')
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script>
+
+<script>
+    @if (Session::has('error'))
+        toastr.error('{!! Session::get('error') !!}','',{timeOut: 4000});
+    @endif
+    @if (Session::has('success'))
+        toastr.success('{!! Session::get('success') !!}','',{timeOut: 4000});
+    @endif
+    @if (Session::has('warning'))
+        toastr.warning('{!! Session::get('warning') !!}','',{timeOut: 4000});
+    @endif
+    @if (Session::has('status'))
+        toastr.info('{!! Session::get('status') !!}','',{timeOut: 4000});
+    @endif
+</script>
+
+@yield('scripts')
 
 </html>

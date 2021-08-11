@@ -16,12 +16,13 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0">Área geral - Suporte</h1>
+                            <h1 class="m-0">Área administrativa</h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="{{ route('index') }}">Página inicial</a></li>
-                                <li class="breadcrumb-item active">Geral - Suporte</li>
+                                <li class="breadcrumb-item">Área administrativa</li>
+                                <li class="breadcrumb-item active">Manutenções</li>
                             </ol>
                         </div>
                     </div>
@@ -33,47 +34,16 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h3 class="card-title">Relatório da lista de equipamentos</h3>
+                                    <h3 class="card-title">Todas manutenções</h3> <br>
+                                    <h5 class="p-2">Nova manutenção:
+                                        <a href="{{ route('sistema.registro.create') }}"
+                                            class="btn btn-success btn-circle">
+                                            <i class="fas fa-plus"></i>
+                                        </a>
+                                    </h5>
                                 </div>
                                 <div class="card-body">
                                     <table id="example1" class="table table-bordered table-striped">
-                                        <thead>
-                                            <tr>
-                                                <th>ID</th>
-                                                <th>Nome</th>
-                                                <th>Cadastrado em</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach ($equipamentos as $equipamento)
-                                                <tr>
-                                                    <td>{{ $equipamento->id }}</td>
-                                                    <td>{{ $equipamento->nome }}</td>
-                                                    <td>{{ data_br_hora($equipamento->created_at) }}</td>
-                                                </tr>
-                                            @endforeach
-                                        </tbody>
-                                        <tfoot>
-                                            <tr>
-                                                <th>ID</th>
-                                                <th>Nome</th>
-                                                <th>Cadastrado em</th>
-                                            </tr>
-                                        </tfoot>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h3 class="card-title">Relatório de manutenções cadastradas por equipamento</h3>
-                                </div>
-                                <div class="card-body">
-                                    <table id="example2" class="table table-bordered table-striped">
                                         <thead>
                                             <tr>
                                                 <th>Data limite</th>
@@ -86,7 +56,7 @@
                                         <tbody>
                                             @foreach ($manutencoes as $manutencao)
                                                 <tr>
-                                                    <td>{{ data_br($manutencao->data_limite) }}</td>
+                                                    <td>{{ $manutencao->data_limite }}</td>
                                                     <td>{{ $manutencao->equipamento->nome }}</td>
                                                     <td>{{ $manutencao->user->name }}</td>
                                                     <td>{{ $manutencao->tipo }}</td>

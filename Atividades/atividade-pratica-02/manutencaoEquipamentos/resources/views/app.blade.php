@@ -25,7 +25,7 @@
     <!-- summernote -->
     <link rel="stylesheet" href="{{ asset('assets/summernote/summernote-bs4.min.css') }}">
 
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/toastr/toastr.min.css') }}">
 
     @yield('styles')
 </head>
@@ -59,7 +59,7 @@
 <!-- AdminLTE App -->
 <script src="{{ asset('assets/dist/js/adminlte.js') }}"></script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script>
+<script src="{{ asset('assets/toastr/toastr.min.js') }}"></script>
 
 <script>
     @if (Session::has('error'))

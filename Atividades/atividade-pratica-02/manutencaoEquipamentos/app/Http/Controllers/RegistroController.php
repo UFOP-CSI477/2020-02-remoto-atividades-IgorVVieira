@@ -10,8 +10,8 @@ class RegistroController extends Controller
 {
     public function index()
     {
-        $manutencoes = Registro::with('equipamento')->get();
-        return view('manutencoes.index', ['manutencoes' => $manutencoes]);
+        $registros = Registro::with('equipamento')->get();
+        return view('manutencoes.index', ['registros' => $registros]);
     }
 
     public function create()
@@ -39,37 +39,42 @@ class RegistroController extends Controller
         }
     }
 
-    public function show($id)
-    {
-        $registro = Registro::where('id', $id)->with('equipamento', 'user')->firstOrFail();
-    }
-
     public function edit($id)
     {
-        //
+        $registro = Registro::where('id', $id)->with('equipamento', 'user')->firstOrFail();
+        $equipamentos = Equipamento::all();
+        return view('manutencoes.edit', ['registro' => $registro, 'equipamentos' => $equipamentos]);
     }
 
     public function update(Request $request, $id)
     {
         try {
-            $registro = Registro::findOrFail($id)->updte([
+            Registro::findOrFail($id)->update([
                 'equipamento_id' => $request->equipamento_id,
                 'user_id' => Auth::user()->id,
                 'descricao' => $request->descricao,
                 'data_limite' => $request->data_limite,
                 'tipo' => $request->tipo,
             ]);
+            $request->session()->flash('success', 'Registro atualizado com sucesso.');
+            return redirect()->route('sistema.registro.index');
         } catch (\Throwable $th) {
             report($th);
+            $request->session()->flash('error', 'Houve um erro ao atualizar o registro.');
+            return redirect()->back();
         }
     }
 
-    public function destroy($id)
+    public function destroy(Request $request)
     {
         try {
-            $registro = Registro::findOrFail($id)->delet();
+            Registro::findOrFail($request->id)->delete();
+            $request->session()->flash('success', 'Registro deletado com sucesso.');
+            return redirect()->back();
         } catch (\Throwable $th) {
             report($th);
+            $request->session()->flash('error', 'Houve um erro ao atualizar o registro.');
+            return redirect()->back();
         }
     }
 }

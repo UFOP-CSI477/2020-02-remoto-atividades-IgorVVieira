@@ -17,7 +17,7 @@
                                 <li class="breadcrumb-item">Área administrativa</li>
                                 <li class="breadcrumb-item"><a href="{{ route('sistema.registro.index') }}">Registros</a>
                                 </li>
-                                <li class="breadcrumb-item active">Novo registro</li>
+                                <li class="breadcrumb-item active">Alterar registro #{{ $registro->id }}</li>
                             </ol>
                         </div>
                     </div>
@@ -30,17 +30,20 @@
                         <div class="col-md-6">
                             <div class="card card-primary">
                                 <div class="card-header">
-                                    <h3 class="card-title">Novo registro</h3>
+                                    <h3 class="card-title">Alterar registro #{{ $registro->id }}</h3>
                                 </div>
-                                <form method="POST" action="{{ route('sistema.registro.store') }}">
+                                <form method="POST"
+                                    action="{{ route('sistema.registro.update', ['id' => $registro->id]) }}">
                                     @csrf
+                                    @method('PUT')
                                     <div class="card-body">
                                         <div class="form-group">
                                             <label for="equipamento_id">Equipamento</label>
                                             <select name="equipamento_id" class="custom-select form-control-border"
                                                 id="equipamento_id" required>
                                                 @foreach ($equipamentos as $equipamento)
-                                                    <option value="{{ $equipamento->id }}">{{ $equipamento->nome }}
+                                                    <option @if ($registro->equipamento->id == $equipamento->id) selected @endif
+                                                        value="{{ $equipamento->id }}">{{ $equipamento->nome }}
                                                     </option>
                                                 @endforeach
                                             </select>
@@ -48,25 +51,27 @@
                                         <div class="form-group">
                                             <label for="descricao">Descrição</label>
                                             <textarea name="descricao" class="form-control" id="descricao"
-                                                placeholder="Descrição da manutenção/problema" required> </textarea>
+                                                placeholder="Descrição da manutenção/problema"
+                                                required>{{ $registro->descricao }} </textarea>
                                         </div>
                                         <div class="form-group">
                                             <label for="data_limite">Data limite</label>
-                                            <input type="date" name="data_limite" class="form-control" id="data_limite"
-                                                required>
+                                            <input value="{{ $registro->data_limite }}" type="date" name="data_limite"
+                                                class="form-control" id="data_limite" required>
                                         </div>
                                         <div class="form-group">
                                             <label for="tipo">Tipo</label>
                                             <select name="tipo" class="custom-select form-control-border" id="tipo"
                                                 required>
-                                                <option value="1">Preventiva</option>
-                                                <option value="2">Corretiva</option>
-                                                <option value="3">Urgente</option>
+                                                <option @if ($registro->tipo == 1) selected @endif value="1">Preventiva</option>
+                                                <option @if ($registro->tipo == 2) selected @endif value="2">Corretiva</option>
+                                                <option @if ($registro->tipo == 3) selected @endif value="3">Urgente</option>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="card-footer">
-                                        <button type="submit" class="btn btn-primary" onclick="this.form.submit(); this.disabled=true;">Cadastrar</button>
+                                        <button type="submit" class="btn btn-primary"
+                                            onclick="this.form.submit(); this.disabled=true;">Alterar</button>
                                     </div>
                                 </form>
                             </div>

@@ -55,17 +55,20 @@
                                         <tbody>
                                             @foreach ($equipamentos as $equipamento)
                                                 <tr>
-                                                    <td>{{ $equipamento->id }}</td>
+                                                    <td class="text-center">{{ $equipamento->id }}</td>
                                                     <td>{{ $equipamento->nome }}</td>
-                                                    <td>{{ data_br($equipamento->created_at) }}</td>
+                                                    <td class="text-center">{{ data_br_hora($equipamento->created_at) }}
+                                                    </td>
                                                     <td class="align-center text-center">
-                                                        <a class="btn btn-info btn-circle">
+                                                        <a href="{{ route('sistema.equipamento.edit', ['id' => $equipamento->id]) }}"
+                                                            class="btn btn-info btn-circle">
                                                             <i class="fas fa-pencil-alt"></i>
                                                         </a>
-                                                        @if (!isset($equipamento->registros))
-                                                            <a class=" btn btn-danger btn-circle">
+                                                        @if (count($equipamento->registros) == 0)
+                                                            <button type="button" class="btn btn-danger" data-toggle="modal"
+                                                                data-target="#modalDeletarEquipamento" data-id="{{ $equipamento->id }}">
                                                                 <i class="fas fa-trash"></i>
-                                                            </a>
+                                                            </button>
                                                         @endif
                                                     </td>
                                                 </tr>
@@ -87,14 +90,33 @@
                 </div>
             </section>
         </div>
-        <!-- /.content-wrapper -->
         @include('layouts.footer')
+    </div>
 
-        <!-- Control Sidebar -->
-        <aside class="control-sidebar control-sidebar-dark">
-            <!-- Control sidebar content goes here -->
-        </aside>
-        <!-- /.control-sidebar -->
+    <div class="modal fade" id="modalDeletarEquipamento">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Tem certeza que deseja deletar esse equipamento?</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="{{ route('sistema.equipamento.delete') }}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <input type="hidden" id="equipamento_id" name="id" value="">
+                    <div class="modal-body">
+                        <p>Essa ação não poderá ser desfeita.</p>
+                    </div>
+                    <div class="modal-footer justify-content-between">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                        <button type="submit" class="btn btn-danger"
+                            onclick="this.form.submit(); this.disabled=true;">Deletar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 @endsection
 
@@ -119,13 +141,19 @@
             buttons: ["copy", "csv", "excel", "pdf", "print"]
         }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
         $('#example2').DataTable({
-            "paging": true,
-            "lengthChange": false,
-            "searching": false,
-            "ordering": true,
-            "info": true,
-            "autoWidth": false,
-            "responsive": true,
+            paging: true,
+            lengthChange: false,
+            searching: false,
+            ordering: true,
+            info: true,
+            autoWidth: false,
+            responsive: true,
+        });
+
+        $('#modalDeletarEquipamento').on('show.bs.modal', function(event) {
+            const button = $(event.relatedTarget);
+            const modal = $(this);
+            modal.find('#equipamento_id').val(button.attr('data-id'));
         });
     </script>
 @endsection

@@ -84,13 +84,13 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach ($manutencoes as $manutencao)
+                                            @foreach ($registros as $registro)
                                                 <tr>
-                                                    <td>{{ data_br($manutencao->data_limite) }}</td>
-                                                    <td>{{ $manutencao->equipamento->nome }}</td>
-                                                    <td>{{ $manutencao->user->name }}</td>
-                                                    <td>{{ $manutencao->tipo }}</td>
-                                                    <td>{{ $manutencao->descricao }}</td>
+                                                    <td>{{ data_br($registro->data_limite) }}</td>
+                                                    <td>{{ $registro->equipamento->nome }}</td>
+                                                    <td>{{ $registro->user->name }}</td>
+                                                    <td class="text-center">{!! get_tipo_registro($registro->tipo) !!}</td>
+                                                    <td>{{ $registro->descricao }}</td>
                                                 </tr>
                                             @endforeach
                                         </tbody>
@@ -140,16 +140,22 @@
             responsive: true,
             lengthChange: false,
             autoWidth: false,
-            buttons: ["copy", "csv", "excel", "pdf", "print"]
+            buttons: ["copy", "csv", "excel", "pdf", "print"],
+            order: [
+                [1, "asc"]
+            ],
         }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
         $('#example2').DataTable({
-            "paging": true,
-            "lengthChange": false,
-            "searching": false,
-            "ordering": true,
-            "info": true,
-            "autoWidth": false,
-            "responsive": true,
+            paging: true,
+            lengthChange: false,
+            searching: false,
+            ordering: true,
+            info: true,
+            autoWidth: false,
+            responsive: true,
+            order: [
+                [0, "asc"]
+            ],
         });
     </script>
 @endsection

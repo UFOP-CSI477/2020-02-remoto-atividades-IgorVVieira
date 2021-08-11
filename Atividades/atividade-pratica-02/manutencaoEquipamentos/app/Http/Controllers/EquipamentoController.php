@@ -3,17 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Equipamento;
-use App\Models\Registro;
+use App\Models\{Equipamento, Registro};
 
 class EquipamentoController extends Controller
 {
     public function index()
     {
         $equipamentos = Equipamento::all();
-        $manutencoes = Registro::with('equipamento', 'user')->get();
+        $registros = Registro::with('equipamento', 'user')->get();
 
-        return view('index', ['equipamentos' => $equipamentos, 'manutencoes' => $manutencoes]);
+        return view('index', ['equipamentos' => $equipamentos, 'registros' => $registros]);
     }
 
     public function equipamentosAdm()
@@ -43,33 +42,42 @@ class EquipamentoController extends Controller
         }
     }
 
-    public function show($id)
-    {
-        $equipamento = Equipamento::findOrFail($id);
-    }
-
     public function edit($id)
     {
-        //
+        $equipamento = Equipamento::findOrFail($id);
+        return view('equipamento.edit', ['equipamento' => $equipamento]);
     }
 
     public function update(Request $request, $id)
     {
         try {
-            $equipamento = Equipamento::findOrFail($id)->update([
+            Equipamento::findOrFail($id)->update([
                 'nome' => $request->nome,
             ]);
+            $request->session()->flash('success', 'Equipamento atualizado com sucesso.');
+            return redirect()->route('sistema.equipamento.index');
         } catch (\Throwable $th) {
-            throw $th;
+            report($th);
+            $request->session()->flash('error', 'Erro ao atualzar equipamento.');
+            return redirect()->back();
         }
     }
 
-    public function destroy($id)
+    public function destroy(Request $request)
     {
         try {
-            $equipamento = Equipamento::findOrFail($id)->delete();
+            $equipamento = Equipamento::findOrFail($request->id);
+            if (count($equipamento->registros) > 0) {
+                $request->session()->flash('warning', 'Este equipamento não pode ser deletado, pois possui registros.');
+                return redirect()->back();
+            }
+            $equipamento->delete();
+            $request->session()->flash('success', 'Equipamento deletado com sucesso.');
+            return redirect()->route('sistema.equipamento.index');
         } catch (\Throwable $th) {
-            throw $th;
+            report($th);
+            $request->session()->flash('error', 'Erro ao deletar equipamento.');
+            return redirect()->back();
         }
     }
 }

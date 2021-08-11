@@ -51,16 +51,26 @@
                                                 <th>Nome do usuário</th>
                                                 <th>Tipo da manutenção</th>
                                                 <th>Descrição da manutenção</th>
+                                                <th>Ações</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach ($manutencoes as $manutencao)
+                                            @foreach ($registros as $registro)
                                                 <tr>
-                                                    <td>{{ $manutencao->data_limite }}</td>
-                                                    <td>{{ $manutencao->equipamento->nome }}</td>
-                                                    <td>{{ $manutencao->user->name }}</td>
-                                                    <td>{{ $manutencao->tipo }}</td>
-                                                    <td>{{ $manutencao->descricao }}</td>
+                                                    <td>{{ $registro->data_limite }}</td>
+                                                    <td>{{ $registro->equipamento->nome }}</td>
+                                                    <td>{{ $registro->user->name }}</td>
+                                                    <td class="text-center">{!! get_tipo_registro($registro->tipo) !!}</td>
+                                                    <td>{{ $registro->descricao }}</td>
+                                                    <td class="align-center text-center">
+                                                        <a href="{{ route('sistema.registro.edit', ['id' => $registro->id]) }}"
+                                                            class="btn btn-info btn-circle">
+                                                            <i class="fas fa-pencil-alt"></i>
+                                                        </a>
+                                                        <a class=" btn btn-danger btn-circle">
+                                                            <i class="fas fa-trash"></i>
+                                                        </a>
+                                                    </td>
                                                 </tr>
                                             @endforeach
                                         </tbody>
@@ -71,6 +81,7 @@
                                                 <th>Nome do usuário</th>
                                                 <th>Tipo da manutenção</th>
                                                 <th>Descrição da manutenção</th>
+                                                <th>Ações</th>
                                             </tr>
                                         </tfoot>
                                     </table>

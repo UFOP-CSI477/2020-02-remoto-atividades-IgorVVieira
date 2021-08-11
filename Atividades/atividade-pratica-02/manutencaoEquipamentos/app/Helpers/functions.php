@@ -15,3 +15,25 @@ if (!function_exists('data_br_hora')) {
         return Carbon::createFromFormat('Y-m-d H:i:s', $timestamp)->format('d/m/Y H:i:s');
     }
 }
+
+if (!function_exists('get_tipo_registro')) {
+    function get_tipo_registro($tipo)
+    {
+        $label = "";
+        switch ($tipo) {
+            case 1:
+                $label = '<button class="btn btn-primary disabled">Preventiva</button>';
+                break;
+            case 2:
+                $label = '<button class="btn btn-warning">Corretiva</button><br>';
+                break;
+            case 3:
+                $label = '<button class="btn btn-danger">Urgente</button><br>';
+                break;
+            default:
+                $label = '<button class="btn btn-primary">Preventiva</button><br>';
+                break;
+        }
+        return $label;
+    }
+}

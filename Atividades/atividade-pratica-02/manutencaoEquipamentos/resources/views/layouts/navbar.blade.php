@@ -9,9 +9,11 @@
          <li class="nav-item d-none d-sm-inline-block">
              <a href="{{ route('login') }}" class="nav-link">Login</a>
          </li>
-         <li class="nav-item d-none d-sm-inline-block">
-            <a href="{{ route('logout') }}" class="nav-link text-danger">Logout</a>
-        </li>
+         @if (Auth::user())
+             <li class="nav-item d-none d-sm-inline-block">
+                 <a href="{{ route('logout') }}" class="nav-link text-danger">Logout</a>
+             </li>
+         @endif
      </ul>
 
      <ul class="navbar-nav ml-auto">

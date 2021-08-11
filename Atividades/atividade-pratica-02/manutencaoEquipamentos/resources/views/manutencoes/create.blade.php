@@ -37,8 +37,7 @@
                                     <div class="card-body">
                                         <div class="form-group">
                                             <label for="equipamento_id">Equipamento</label>
-                                            <select name="equipamento_id" class="custom-select form-control-border"
-                                                id="equipamento_id" required>
+                                            <select name="equipamento_id" class="custom-select form-control-border" id="equipamento_id" required>
                                                 @foreach ($equipamentos as $equipamento)
                                                     <option value="{{ $equipamento->id }}">{{ $equipamento->nome }}
                                                     </option>
@@ -47,18 +46,15 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="descricao">Descrição</label>
-                                            <textarea name="descricao" class="form-control" id="descricao"
-                                                placeholder="Descrição da manutenção/problema" required> </textarea>
+                                            <textarea name="descricao" class="form-control" id="descricao" placeholder="Descrição da manutenção/problema" required> </textarea>
                                         </div>
                                         <div class="form-group">
                                             <label for="data_limite">Data limite</label>
-                                            <input type="date" name="data_limite" class="form-control" id="data_limite"
-                                                required>
+                                            <input type="date" name="data_limite" class="form-control" id="data_limite" required>
                                         </div>
                                         <div class="form-group">
                                             <label for="tipo">Tipo</label>
-                                            <select name="tipo" class="custom-select form-control-border" id="tipo"
-                                                required>
+                                            <select name="tipo" class="custom-select form-control-border" id="tipo" required>
                                                 <option value="1">Preventiva</option>
                                                 <option value="2">Corretiva</option>
                                                 <option value="3">Urgente</option>
@@ -76,13 +72,6 @@
             </section>
 
         </div>
-        <!-- /.content-wrapper -->
         @include('layouts.footer')
-
-        <!-- Control Sidebar -->
-        <aside class="control-sidebar control-sidebar-dark">
-            <!-- Control sidebar content goes here -->
-        </aside>
-        <!-- /.control-sidebar -->
     </div>
 @endsection

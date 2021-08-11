@@ -57,7 +57,7 @@
                                         <tbody>
                                             @foreach ($registros as $registro)
                                                 <tr>
-                                                    <td>{{ $registro->data_limite }}</td>
+                                                    <td class="text-center">{{ data_br($registro->data_limite) }}</td>
                                                     <td>{{ $registro->equipamento->nome }}</td>
                                                     <td>{{ $registro->user->name }}</td>
                                                     <td class="text-center">{!! get_tipo_registro($registro->tipo) !!}</td>
@@ -67,9 +67,11 @@
                                                             class="btn btn-info btn-circle">
                                                             <i class="fas fa-pencil-alt"></i>
                                                         </a>
-                                                        <a class=" btn btn-danger btn-circle">
+                                                        <button type="button" class="btn btn-danger" data-toggle="modal"
+                                                            data-target="#modalDeletarRegistro"
+                                                            data-id="{{ $registro->id }}">
                                                             <i class="fas fa-trash"></i>
-                                                        </a>
+                                                        </button>
                                                     </td>
                                                 </tr>
                                             @endforeach
@@ -92,14 +94,33 @@
                 </div>
             </section>
         </div>
-        <!-- /.content-wrapper -->
         @include('layouts.footer')
+    </div>
 
-        <!-- Control Sidebar -->
-        <aside class="control-sidebar control-sidebar-dark">
-            <!-- Control sidebar content goes here -->
-        </aside>
-        <!-- /.control-sidebar -->
+    <div class="modal fade" id="modalDeletarRegistro">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Tem certeza que deseja deletar esse registro?</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="{{ route('sistema.registro.delete') }}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <input type="hidden" id="registro_id" name="id" value="">
+                    <div class="modal-body">
+                        <p>Essa ação não poderá ser desfeita.</p>
+                    </div>
+                    <div class="modal-footer justify-content-between">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                        <button type="submit" class="btn btn-danger"
+                            onclick="this.form.submit(); this.disabled=true;">Deletar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 @endsection
 
@@ -124,13 +145,19 @@
             buttons: ["copy", "csv", "excel", "pdf", "print"]
         }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
         $('#example2').DataTable({
-            "paging": true,
-            "lengthChange": false,
-            "searching": false,
-            "ordering": true,
-            "info": true,
-            "autoWidth": false,
-            "responsive": true,
+            paging: true,
+            lengthChange: false,
+            searching: false,
+            ordering: true,
+            info: true,
+            autoWidth: false,
+            responsive: true,
+        });
+
+        $('#modalDeletarRegistro').on('show.bs.modal', function(event) {
+            const button = $(event.relatedTarget);
+            const modal = $(this);
+            modal.find('#registro_id').val(button.attr('data-id'));
         });
     </script>
 @endsection

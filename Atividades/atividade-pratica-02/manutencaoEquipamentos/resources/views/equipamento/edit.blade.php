@@ -15,8 +15,7 @@
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item">Área administrativa</li>
-                                <li class="breadcrumb-item"><a
-                                        href="{{ route('sistema.equipamento.index') }}">Equipamentos</a></li>
+                                <li class="breadcrumb-item"><a href="{{ route('sistema.equipamento.index') }}">Equipamentos</a></li>
                                 <li class="breadcrumb-item active">Editar equipamento #{{ $equipamento->id }}</li>
                             </ol>
                         </div>
@@ -32,20 +31,17 @@
                                 <div class="card-header">
                                     <h3 class="card-title">Editar equipamento #{{ $equipamento->id }}</h3>
                                 </div>
-                                <form method="POST"
-                                    action="{{ route('sistema.equipamento.update', ['id' => $equipamento->id]) }}">
+                                <form method="POST" action="{{ route('sistema.equipamento.update', ['id' => $equipamento->id]) }}">
                                     @csrf
                                     @method('PUT')
                                     <div class="card-body">
                                         <div class="form-group">
                                             <label for="nome">Nome</label>
-                                            <input value="{{ $equipamento->nome }}" type="text" name="nome"
-                                                class="form-control" id="nome" placeholder="Nome do equipamento" required>
+                                            <input value="{{ $equipamento->nome }}" type="text" name="nome" class="form-control" id="nome" placeholder="Nome do equipamento" required>
                                         </div>
                                     </div>
                                     <div class="card-footer">
-                                        <button type="submit" class="btn btn-primary"
-                                            onclick="this.form.submit(); this.disabled=true;">Alterar</button>
+                                        <button type="submit" class="btn btn-primary" onclick="this.form.submit(); this.disabled=true;">Alterar</button>
                                     </div>
                                 </form>
                             </div>
@@ -55,13 +51,6 @@
             </section>
 
         </div>
-        <!-- /.content-wrapper -->
         @include('layouts.footer')
-
-        <!-- Control Sidebar -->
-        <aside class="control-sidebar control-sidebar-dark">
-            <!-- Control sidebar content goes here -->
-        </aside>
-        <!-- /.control-sidebar -->
     </div>
 @endsection

@@ -73,7 +73,7 @@ class RegistroController extends Controller
             return redirect()->back();
         } catch (\Throwable $th) {
             report($th);
-            $request->session()->flash('error', 'Houve um erro ao atualizar o registro.');
+            $request->session()->flash('error', 'Houve um erro ao deletar o registro.');
             return redirect()->back();
         }
     }

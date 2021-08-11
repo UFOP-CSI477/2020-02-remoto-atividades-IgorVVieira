@@ -3,7 +3,6 @@
 @section('content')
     <div class="wrapper">
         @include('layouts.navbar')
-
         @include('layouts.sidebar')
         <div class="content-wrapper">
             <div class="content-header">
@@ -15,8 +14,7 @@
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item">Área administrativa</li>
-                                <li class="breadcrumb-item"><a
-                                        href="{{ route('sistema.equipamento.index') }}">Equipamentos</a></li>
+                                <li class="breadcrumb-item"><a href="{{ route('sistema.equipamento.index') }}">Equipamentos</a></li>
                                 <li class="breadcrumb-item active">Novo equipamento</li>
                             </ol>
                         </div>
@@ -37,8 +35,7 @@
                                     <div class="card-body">
                                         <div class="form-group">
                                             <label for="nome">Nome</label>
-                                            <input type="text" name="nome" class="form-control" id="nome"
-                                                placeholder="Nome do equipamento" required>
+                                            <input type="text" name="nome" class="form-control" id="nome" placeholder="Nome do equipamento" required>
                                         </div>
                                     </div>
                                     <div class="card-footer">
@@ -50,15 +47,7 @@
                     </div>
                 </div>
             </section>
-
         </div>
-        <!-- /.content-wrapper -->
         @include('layouts.footer')
-
-        <!-- Control Sidebar -->
-        <aside class="control-sidebar control-sidebar-dark">
-            <!-- Control sidebar content goes here -->
-        </aside>
-        <!-- /.control-sidebar -->
     </div>
 @endsection

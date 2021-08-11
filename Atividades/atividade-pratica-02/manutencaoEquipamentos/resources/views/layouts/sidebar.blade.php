@@ -1,21 +1,9 @@
  <aside class="main-sidebar sidebar-dark-primary elevation-4">
-     <span class="brand-text font-weight-light">AdminLTE 3</span>
+     <i class="fas fa-tools fa-4x text-center"></i>
      <div class="sidebar">
          <div class="user-panel mt-3 pb-3 mb-3 d-flex">
              <div class="info">
                  <a href="#" class="d-block">{{ Auth::user() ? Auth::user()->name : 'Convidado' }}</a>
-             </div>
-         </div>
-
-         <div class="form-inline">
-             <div class="input-group" data-widget="sidebar-search">
-                 <input class="form-control form-control-sidebar" type="search" placeholder="Search"
-                     aria-label="Search">
-                 <div class="input-group-append">
-                     <button class="btn btn-sidebar">
-                         <i class="fas fa-search fa-fw"></i>
-                     </button>
-                 </div>
              </div>
          </div>
 

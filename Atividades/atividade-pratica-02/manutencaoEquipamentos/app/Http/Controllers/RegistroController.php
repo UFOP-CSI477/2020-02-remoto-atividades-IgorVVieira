@@ -14,6 +14,13 @@ class RegistroController extends Controller
         return view('manutencoes.index', ['registros' => $registros]);
     }
 
+    public function relatorio()
+    {
+        $registros = Equipamento::whereHas('registros')->with('registros.user')->get();
+
+        return response()->json($registros);
+    }
+
     public function create()
     {
         $equipamentos = Equipamento::all();

@@ -3,7 +3,6 @@
 @section('content')
     <div class="wrapper">
         @include('layouts.navbar')
-
         @include('layouts.sidebar')
         <div class="content-wrapper">
             <div class="content-header">

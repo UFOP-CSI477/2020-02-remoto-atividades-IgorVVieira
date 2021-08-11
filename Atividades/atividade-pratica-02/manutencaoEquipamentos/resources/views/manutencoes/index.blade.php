@@ -36,8 +36,7 @@
                                 <div class="card-header">
                                     <h3 class="card-title">Todas manutenções</h3> <br>
                                     <h5 class="p-2">Nova manutenção:
-                                        <a href="{{ route('sistema.registro.create') }}"
-                                            class="btn btn-success btn-circle">
+                                        <a href="{{ route('sistema.registro.create') }}" class="btn btn-success btn-circle">
                                             <i class="fas fa-plus"></i>
                                         </a>
                                     </h5>
@@ -63,13 +62,10 @@
                                                     <td class="text-center">{!! get_tipo_registro($registro->tipo) !!}</td>
                                                     <td>{{ $registro->descricao }}</td>
                                                     <td class="align-center text-center">
-                                                        <a href="{{ route('sistema.registro.edit', ['id' => $registro->id]) }}"
-                                                            class="btn btn-info btn-circle">
+                                                        <a href="{{ route('sistema.registro.edit', ['id' => $registro->id]) }}" class="btn btn-info btn-circle">
                                                             <i class="fas fa-pencil-alt"></i>
                                                         </a>
-                                                        <button type="button" class="btn btn-danger" data-toggle="modal"
-                                                            data-target="#modalDeletarRegistro"
-                                                            data-id="{{ $registro->id }}">
+                                                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalDeletarRegistro" data-id="{{ $registro->id }}">
                                                             <i class="fas fa-trash"></i>
                                                         </button>
                                                     </td>
@@ -115,8 +111,7 @@
                     </div>
                     <div class="modal-footer justify-content-between">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
-                        <button type="submit" class="btn btn-danger"
-                            onclick="this.form.submit(); this.disabled=true;">Deletar</button>
+                        <button type="submit" class="btn btn-danger" onclick="this.form.submit(); this.disabled=true;">Deletar</button>
                     </div>
                 </form>
             </div>

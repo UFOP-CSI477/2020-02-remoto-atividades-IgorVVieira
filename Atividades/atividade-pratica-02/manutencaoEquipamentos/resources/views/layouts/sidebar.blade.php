@@ -52,13 +52,13 @@
                                          </a>
                                      </li>
                                      <li class="nav-item">
-                                         <a href="{{ route('index') }}" class="nav-link">
+                                         <a href="{{ route('sistema.users.relatorio') }}" class="nav-link">
                                              <i class="far fa-circle nav-icon"></i>
                                              <p>Relatório de usuários</p>
                                          </a>
                                      </li>
                                      <li class="nav-item">
-                                         <a href="{{ route('index') }}" class="nav-link">
+                                         <a href="{{ route('sistema.registro.relatorio') }}" class="nav-link">
                                              <i class="far fa-circle nav-icon"></i>
                                              <p>Relatório de manutenções</p>
                                          </a>

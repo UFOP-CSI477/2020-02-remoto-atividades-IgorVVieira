@@ -9,8 +9,8 @@ class EquipamentoController extends Controller
 {
     public function index()
     {
-        $equipamentos = Equipamento::all();
-        $registros = Registro::with('equipamento', 'user')->get();
+        $equipamentos = Equipamento::orderBy('nome')->get();
+        $registros = Registro::with('equipamento', 'user')->orderBy('data_limite')->get();
 
         return view('index', ['equipamentos' => $equipamentos, 'registros' => $registros]);
     }

@@ -46,7 +46,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="descricao">Descrição</label>
-                                            <textarea name="descricao" class="form-control" id="descricao" placeholder="Descrição da manutenção/problema" required>{{ $registro->descricao }} </textarea>
+                                            <textarea name="descricao" class="form-control" id="descricao" placeholder="Descrição da manutenção/problema" required maxlength="191">{{ $registro->descricao }} </textarea>
                                         </div>
                                         <div class="form-group">
                                             <label for="data_limite">Data limite</label>

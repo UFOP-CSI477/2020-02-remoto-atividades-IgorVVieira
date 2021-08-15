@@ -35,7 +35,7 @@
                                     <div class="card-body">
                                         <div class="form-group">
                                             <label for="nome">Nome</label>
-                                            <input type="text" name="nome" class="form-control" id="nome" placeholder="Nome do equipamento" required>
+                                            <input type="text" name="nome" class="form-control" id="nome" placeholder="Nome do equipamento" required maxlength="50">
                                         </div>
                                     </div>
                                     <div class="card-footer">

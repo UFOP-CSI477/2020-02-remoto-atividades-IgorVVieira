@@ -46,7 +46,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="descricao">Descrição</label>
-                                            <textarea name="descricao" class="form-control" id="descricao" placeholder="Descrição da manutenção/problema" required> </textarea>
+                                            <textarea name="descricao" class="form-control" id="descricao" placeholder="Descrição da manutenção/problema" required maxlength="191"> </textarea>
                                         </div>
                                         <div class="form-group">
                                             <label for="data_limite">Data limite</label>

@@ -37,7 +37,7 @@
                                     <div class="card-body">
                                         <div class="form-group">
                                             <label for="nome">Nome</label>
-                                            <input value="{{ $equipamento->nome }}" type="text" name="nome" class="form-control" id="nome" placeholder="Nome do equipamento" required>
+                                            <input value="{{ $equipamento->nome }}" type="text" name="nome" class="form-control" id="nome" placeholder="Nome do equipamento" required maxlength="50">
                                         </div>
                                     </div>
                                     <div class="card-footer">

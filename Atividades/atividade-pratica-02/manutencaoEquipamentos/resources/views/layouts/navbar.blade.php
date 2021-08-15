@@ -11,7 +11,10 @@
          </li>
          @if (Auth::user())
              <li class="nav-item d-none d-sm-inline-block">
-                 <a href="{{ route('logout') }}" class="nav-link text-danger">Logout</a>
+                 <form action="{{ route('logout') }}" method="POST">
+                     @csrf
+                     <button type="submit" class="btn btn-outline-danger">Logout</button>
+                 </form>
              </li>
          @endif
      </ul>

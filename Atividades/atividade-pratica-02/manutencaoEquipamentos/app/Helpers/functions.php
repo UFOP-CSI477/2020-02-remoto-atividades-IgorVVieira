@@ -25,13 +25,13 @@ if (!function_exists('get_tipo_registro')) {
                 $label = '<button class="btn btn-primary disabled">Preventiva</button>';
                 break;
             case 2:
-                $label = '<button class="btn btn-warning">Corretiva</button><br>';
+                $label = '<button class="btn btn-warning disabled">Corretiva</button><br>';
                 break;
             case 3:
-                $label = '<button class="btn btn-danger">Urgente</button><br>';
+                $label = '<button class="btn btn-danger disabled">Urgente</button><br>';
                 break;
             default:
-                $label = '<button class="btn btn-primary">Preventiva</button><br>';
+                $label = '<button class="btn btn-primary disabled">Preventiva</button><br>';
                 break;
         }
         return $label;

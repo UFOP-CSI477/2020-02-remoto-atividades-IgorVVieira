@@ -1,5 +1,5 @@
  <aside class="main-sidebar sidebar-dark-primary elevation-4">
-     <i class="fas fa-tools fa-4x text-center"></i>
+     <i class="fas fa-tools fa-4x text-center p-2"></i>
      <div class="sidebar">
          <div class="user-panel mt-3 pb-3 mb-3 d-flex">
              <div class="info">

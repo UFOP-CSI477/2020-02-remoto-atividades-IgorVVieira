@@ -34,37 +34,37 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h3 class="card-title">Todos usuários</h3> <br>
+                                    <h3 class="card-title">Relatório de mantenções</h3> <br>
                                 </div>
                                 <div class="card-body">
-                                    <table id="example1" class="table table-bordered table-striped">
-                                        <thead>
-                                            <tr>
-                                                <th class="text-center">ID</th>
-                                                <th class="text-center">Nome</th>
-                                                <th class="text-center">Email</th>
-                                                <th class="text-center">Quantidade de manutenções</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach ($users as $user)
+                                    @foreach ($registros as $equipamento)
+                                        <h3>Equipamento: {{ $equipamento->nome }}</h3>
+                                        <table id="example1" class="table table-bordered table-striped">
+                                            <thead>
                                                 <tr>
-                                                    <td class="text-center">{{ $user->id }}</td>
-                                                    <td class="text-center">{{ $user->name }}</td>
-                                                    <td class="text-center">{{ $user->email }}</td>
-                                                    <td class="text-center">{{ count($user->registros) }}</td>
+                                                    <th class="text-center">Usuário</th>
+                                                    <th class="text-center">Descrição</th>
+                                                    <th class="text-center">Data limite</th>
+                                                    <th class="text-center">Status</th>
                                                 </tr>
-                                            @endforeach
-                                        </tbody>
-                                        <tfoot>
-                                            <tr>
-                                                <th class="text-center">ID</th>
-                                                <th class="text-center">Nome</th>
-                                                <th class="text-center">Email</th>
-                                                <th class="text-center">Quantidade de manutenções</th>
-                                            </tr>
-                                        </tfoot>
-                                    </table>
+                                            </thead>
+                                            <tbody>
+                                                @foreach ($equipamento->registros as $registro)
+                                                    <tr>
+                                                        <td class="text-center">{{ $registro->user->name }}</td>
+                                                        <td class="text-center">{{ $registro->descricao }}</td>
+                                                        <td class="text-center">{{ data_br($registro->data_limite) }}</td>
+                                                        <td class="text-center">{!! get_tipo_registro($registro->tipo) !!}</td>
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    <th class="text-center" colspan="4">Total: {{ count($equipamento->registros) }}</th>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+                                    @endforeach
                                 </div>
                             </div>
                         </div>
@@ -96,7 +96,7 @@
             autoWidth: false,
             buttons: ["copy", "csv", "excel", "pdf", "print"],
             order: [
-                [1, "asc"]
+                [0, "asc"]
             ],
         }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
     </script>

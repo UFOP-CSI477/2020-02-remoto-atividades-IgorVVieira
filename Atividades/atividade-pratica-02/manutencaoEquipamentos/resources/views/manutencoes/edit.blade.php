@@ -31,7 +31,7 @@
                                 <div class="card-header">
                                     <h3 class="card-title">Alterar registro #{{ $registro->id }}</h3>
                                 </div>
-                                <form method="POST" action="{{ route('sistema.registro.update', ['id' => $registro->id]) }}">
+                                <form id="formEditarManutencao" method="POST" action="{{ route('sistema.registro.update', ['id' => $registro->id]) }}">
                                     @csrf
                                     @method('PUT')
                                     <div class="card-body">
@@ -62,7 +62,7 @@
                                         </div>
                                     </div>
                                     <div class="card-footer">
-                                        <button type="submit" class="btn btn-primary" onclick="this.form.submit(); this.disabled=true;">Alterar</button>
+                                        <button id="btnEditarManutecao" type="submit" class="btn btn-primary">Alterar</button>
                                     </div>
                                 </form>
                             </div>
@@ -73,4 +73,48 @@
         </div>
         @include('layouts.footer')
     </div>
+@endsection
+
+@section('scripts')
+    <script>
+        $('#formEditarManutencao').validate({
+            rules: {
+                descricao: {
+                    required: true,
+                },
+                data_limite: {
+                    required: true,
+                }
+            },
+            messages: {
+                descricao: {
+                    required: "Por favor, preencha este campo",
+                },
+                data_limite: {
+                    required: "Por favor, selecione uma data válida",
+                },
+            },
+            errorElement: 'span',
+            errorPlacement: function(error, element) {
+                error.addClass('invalid-feedback');
+                element.closest('.form-group').append(error);
+            },
+            highlight: function(element, errorClass, validClass) {
+                $(element).addClass('is-invalid');
+            },
+            unhighlight: function(element, errorClass, validClass) {
+                $(element).removeClass('is-invalid');
+            }
+        });
+
+        $('#btnEditarManutecao').click(function(event) {
+            event.preventDefault();
+            $('#btnEditarManutecao').prop('disabled', true);
+            if ($('#formEditarManutencao').valid()) {
+                $('#formEditarManutencao').submit();
+            } else {
+                $('#btnEditarManutecao').prop('disabled', false)
+            }
+        });
+    </script>
 @endsection

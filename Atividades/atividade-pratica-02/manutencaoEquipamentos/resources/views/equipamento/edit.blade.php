@@ -31,7 +31,7 @@
                                 <div class="card-header">
                                     <h3 class="card-title">Editar equipamento #{{ $equipamento->id }}</h3>
                                 </div>
-                                <form method="POST" action="{{ route('sistema.equipamento.update', ['id' => $equipamento->id]) }}">
+                                <form id="formEditarEquipamento" method="POST" action="{{ route('sistema.equipamento.update', ['id' => $equipamento->id]) }}">
                                     @csrf
                                     @method('PUT')
                                     <div class="card-body">
@@ -41,7 +41,7 @@
                                         </div>
                                     </div>
                                     <div class="card-footer">
-                                        <button type="submit" class="btn btn-primary" onclick="this.form.submit(); this.disabled=true;">Alterar</button>
+                                        <button id="btnEditarEquipamento" type="submit" class="btn btn-primary">Alterar</button>
                                     </div>
                                 </form>
                             </div>
@@ -53,4 +53,42 @@
         </div>
         @include('layouts.footer')
     </div>
+@endsection
+
+@section('scripts')
+    <script>
+        $('#formEditarEquipamento').validate({
+            rules: {
+                nome: {
+                    required: true,
+                },
+            },
+            messages: {
+                nome: {
+                    required: "Por favor, preencha este campo",
+                },
+            },
+            errorElement: 'span',
+            errorPlacement: function(error, element) {
+                error.addClass('invalid-feedback');
+                element.closest('.form-group').append(error);
+            },
+            highlight: function(element, errorClass, validClass) {
+                $(element).addClass('is-invalid');
+            },
+            unhighlight: function(element, errorClass, validClass) {
+                $(element).removeClass('is-invalid');
+            }
+        });
+
+        $('#btnEditarEqupamento').click(function(event) {
+            event.preventDefault();
+            $('#btnEditarEqupamento').prop('disabled', true);
+            if ($('#formEditarEquipamento').valid()) {
+                $('#formEditarEquipamento').submit();
+            } else {
+                $('#btnEditarEqupamento').prop('disabled', false);
+            }
+        });
+    </script>
 @endsection

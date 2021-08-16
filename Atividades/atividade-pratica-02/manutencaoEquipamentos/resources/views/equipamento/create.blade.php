@@ -30,7 +30,7 @@
                                 <div class="card-header">
                                     <h3 class="card-title">Novo equipamento</h3>
                                 </div>
-                                <form method="POST" action="{{ route('sistema.equipamento.store') }}">
+                                <form id="formNovoEquipamento" method="POST" action="{{ route('sistema.equipamento.store') }}">
                                     @csrf
                                     <div class="card-body">
                                         <div class="form-group">
@@ -39,7 +39,7 @@
                                         </div>
                                     </div>
                                     <div class="card-footer">
-                                        <button type="submit" class="btn btn-primary" onclick="this.form.submit(); this.disabled=true;">Cadastrar</button>
+                                        <button id="btnNovoEquipamento" type="submit" class="btn btn-primary">Cadastrar</button>
                                     </div>
                                 </form>
                             </div>
@@ -50,4 +50,42 @@
         </div>
         @include('layouts.footer')
     </div>
+@endsection
+
+@section('scripts')
+    <script>
+        $('#formNovoEquipamento').validate({
+            rules: {
+                nome: {
+                    required: true,
+                },
+            },
+            messages: {
+                nome: {
+                    required: "Por favor, preencha este campo",
+                },
+            },
+            errorElement: 'span',
+            errorPlacement: function(error, element) {
+                error.addClass('invalid-feedback');
+                element.closest('.form-group').append(error);
+            },
+            highlight: function(element, errorClass, validClass) {
+                $(element).addClass('is-invalid');
+            },
+            unhighlight: function(element, errorClass, validClass) {
+                $(element).removeClass('is-invalid');
+            }
+        });
+
+        $('#btnNovoEquipamento').click(function(event) {
+            event.preventDefault();
+            $('#btnNovoEquipamento').prop('disabled', true);
+            if ($('#formNovoEquipamento').valid()) {
+                $('#formNovoEquipamento').submit();
+            } else {
+                $('#btnNovoEquipamento').prop('disabled', false);
+            }
+        });
+    </script>
 @endsection

@@ -9,8 +9,8 @@
 
          <nav class="mt-2">
              <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                 <li class="nav-item">
-                     <a href="#" class="nav-link">
+                 <li class="nav-item menu-open">
+                     <a href="#" class="nav-link active">
                          <i class="nav-icon fas fa-copy"></i>
                          <p>
                              Áreas
@@ -20,13 +20,13 @@
                      </a>
                      <ul class="nav nav-treeview">
                          <li class="nav-item">
-                             <a href="{{ route('index') }}" class="nav-link">
+                             <a href="{{ route('index') }}" class="nav-link {{ menu_ativado('index') }}">
                                  <i class="far fa-circle nav-icon"></i>
                                  <p>Geral - Suporte</p>
                              </a>
                          </li>
-                         <li class="nav-item">
-                             <a href="pages/layout/top-nav-sidebar.html" class="nav-link">
+                         <li class="nav-item {{ menu_open('sistema.equipamento.') }} {{ menu_open('sistema.registro.') }} {{ menu_open('sistema.users.') }}">
+                             <a href="#" class="nav-link {{ menu_ativado('sistema.equipamento.') }} {{ menu_ativado('sistema.registro.') }} {{ menu_ativado('sistema.users.') }}">
                                  <i class="far fa-circle nav-icon"></i>
                                  <p>Administrativa</p>
                                  <i class="fas fa-angle-left right"></i>
@@ -40,25 +40,25 @@
                                  </li>
                                  @if (Auth::user())
                                      <li class="nav-item">
-                                         <a href="{{ route('sistema.equipamento.index') }}" class="nav-link">
+                                         <a href="{{ route('sistema.equipamento.index') }}" class="nav-link {{ menu_ativado('sistema.equipamento.index') }}">
                                              <i class="far fa-circle nav-icon"></i>
                                              <p>Equipamentos</p>
                                          </a>
                                      </li>
                                      <li class="nav-item">
-                                         <a href="{{ route('sistema.registro.index') }}" class="nav-link">
+                                         <a href="{{ route('sistema.registro.index') }}" class="nav-link {{ menu_ativado('sistema.registro.index') }}">
                                              <i class="far fa-circle nav-icon"></i>
                                              <p>Manutenções</p>
                                          </a>
                                      </li>
                                      <li class="nav-item">
-                                         <a href="{{ route('sistema.users.relatorio') }}" class="nav-link">
+                                         <a href="{{ route('sistema.users.relatorio') }}" class="nav-link {{ menu_ativado('sistema.users.relatorio') }}">
                                              <i class="far fa-circle nav-icon"></i>
                                              <p>Relatório de usuários</p>
                                          </a>
                                      </li>
                                      <li class="nav-item">
-                                         <a href="{{ route('sistema.registro.relatorio') }}" class="nav-link">
+                                         <a href="{{ route('sistema.registro.relatorio') }}" class="nav-link {{ menu_ativado('sistema.registro.relatorio') }}">
                                              <i class="far fa-circle nav-icon"></i>
                                              <p>Relatório de manutenções</p>
                                          </a>

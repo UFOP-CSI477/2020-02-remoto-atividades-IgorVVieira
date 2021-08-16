@@ -27,6 +27,9 @@
 </body>
 <!-- jQuery -->
 <script src="{{ asset('assets/jquery/jquery.min.js') }}"></script>
+<!-- jquery-validation -->
+<script src="{{ asset('assets/jquery-validation/jquery.validate.min.js') }}"></script>
+<script src="{{ asset('assets/jquery-validation/additional-methods.min.js') }}"></script>
 <!-- jQuery UI 1.11.4 -->
 <script src="{{ asset('assets/jquery-ui/jquery-ui.min.js') }}"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->

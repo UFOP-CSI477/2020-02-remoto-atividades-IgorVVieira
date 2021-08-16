@@ -32,7 +32,7 @@
                                 <div class="card-header">
                                     <h3 class="card-title">Novo registro</h3>
                                 </div>
-                                <form method="POST" action="{{ route('sistema.registro.store') }}">
+                                <form id="formNovaManutencao" method="POST" action="{{ route('sistema.registro.store') }}">
                                     @csrf
                                     <div class="card-body">
                                         <div class="form-group">
@@ -62,7 +62,7 @@
                                         </div>
                                     </div>
                                     <div class="card-footer">
-                                        <button type="submit" class="btn btn-primary" onclick="this.form.submit(); this.disabled=true;">Cadastrar</button>
+                                        <button id="btnNovaManutencao" type="submit" class="btn btn-primary">Cadastrar</button>
                                     </div>
                                 </form>
                             </div>
@@ -74,4 +74,48 @@
         </div>
         @include('layouts.footer')
     </div>
+@endsection
+
+@section('scripts')
+    <script>
+        $('#formNovaManutencao').validate({
+            rules: {
+                descricao: {
+                    required: true,
+                },
+                data_limite: {
+                    required: true,
+                }
+            },
+            messages: {
+                descricao: {
+                    required: "Por favor, preencha este campo",
+                },
+                data_limite: {
+                    required: "Por favor, selecione uma data válida",
+                },
+            },
+            errorElement: 'span',
+            errorPlacement: function(error, element) {
+                error.addClass('invalid-feedback');
+                element.closest('.form-group').append(error);
+            },
+            highlight: function(element, errorClass, validClass) {
+                $(element).addClass('is-invalid');
+            },
+            unhighlight: function(element, errorClass, validClass) {
+                $(element).removeClass('is-invalid');
+            }
+        });
+
+        $('#btnNovaManutencao').click(function(event) {
+            event.preventDefault();
+            $('#btnNovaManutencao').prop('disabled', true);
+            if ($('#formNovaManutencao').valid()) {
+                $('#formNovaManutencao').submit();
+            } else {
+                $('#btnNovaManutencao').prop('disabled', false);
+            }
+        });
+    </script>
 @endsection

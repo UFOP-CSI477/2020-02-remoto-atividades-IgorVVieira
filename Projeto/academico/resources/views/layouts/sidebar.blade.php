@@ -44,7 +44,7 @@
                         <li class="nav-item">
                             <a href="{{ route('academico.disciplina.create') }}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Nova</p>
+                                <p>Vincular</p>
                             </a>
                         </li>
                         <li class="nav-item">
@@ -68,7 +68,7 @@
                         <li class="nav-item">
                             <a href="{{ route('academico.disciplina.create') }}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Nova</p>
+                                <p>Cadastrar</p>
                             </a>
                         </li>
                         <li class="nav-item">

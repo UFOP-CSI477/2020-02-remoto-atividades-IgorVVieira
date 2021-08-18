@@ -15,9 +15,9 @@ class CreateProvasTable extends Migration
             $table->date('data');
             $table->decimal('valor', 5, 2)->default(0);
             $table->decimal('resultado', 5, 2)->nullable();
-            $table->foreignId('user_id')->constrained('user')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('user_id')->constrained('users')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('disciplina_id')->constrained('disciplinas')->onUpdate('cascade')->onDelete('cascade');
-            $table->$table->timestamps();
+            $table->timestamps();
         });
     }
 

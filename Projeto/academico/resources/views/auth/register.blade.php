@@ -22,6 +22,18 @@
                             </div>
 
                             <div class="form-group row">
+                                <label for="matricula" class="col-md-4 col-form-label text-md-right">Matrícula (com pontos)</label>
+                                <div class="col-md-6">
+                                    <input id="matricula" type="text" class="form-control @error('matricula') is-invalid @enderror" name="matricula" value="{{ old('matricula') }}" required autocomplete="matricula" autofocus>
+                                    @error('matricula')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
                                 <label for="email" class="col-md-4 col-form-label text-md-right">Email institucional</label>
                                 <div class="col-md-6">
                                     <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">

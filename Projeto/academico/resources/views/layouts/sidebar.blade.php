@@ -10,18 +10,7 @@
                 <a href="#" class="d-block">{{ Auth::user()->name }}</a>
             </div>
         </div>
-
-        <div class="form-inline">
-            <div class="input-group" data-widget="sidebar-search">
-                <input class="form-control form-control-sidebar" type="search" placeholder="Buscar..." aria-label="Search">
-                <div class="input-group-append">
-                    <button class="btn btn-sidebar">
-                        <i class="fas fa-search fa-fw"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-
+        
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <li class="nav-item menu-open">
@@ -45,30 +34,6 @@
                             <a href="{{ route('academico.disciplina.create') }}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Vincular</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('academico.disciplina.index') }}" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Minhas</p>
-                            </a>
-                        </li>
-                    </ul>
-
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class=" nav-icon fas fa-book"></i>
-                        <p>
-                            Prova/Ativadade avaliativa
-                            <i class="fas fa-angle-left right"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{ route('academico.disciplina.prova.create') }}" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Cadastrar</p>
                             </a>
                         </li>
                         <li class="nav-item">

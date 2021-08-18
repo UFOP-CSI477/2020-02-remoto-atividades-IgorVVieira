@@ -28,13 +28,15 @@
     @yield('styles')
 </head>
 
-<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
+<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed text-sm">
     @yield('content')
 </body>
 
 <!-- REQUIRED SCRIPTS -->
 <!-- jQuery -->
 <script src="{{ asset('assets/jquery/jquery.min.js') }}"></script>
+<!-- jQuery UI -->
+<script src="{{ asset('assets/jquery-ui/jquery-ui.min.js') }}"></script>
 <!-- jquery-validation -->
 <script src="{{ asset('assets/jquery-validation/jquery.validate.min.js') }}"></script>
 <script src="{{ asset('assets/jquery-validation/additional-methods.min.js') }}"></script>

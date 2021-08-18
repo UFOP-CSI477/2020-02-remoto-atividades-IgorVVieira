@@ -22,6 +22,7 @@
                 <p class="login-box-msg">Faça login para utilizar o sistema</p>
                 <form action="{{ route('login') }}" method="POST">
                     @csrf
+                    @method('POST')
                     <div class="input-group mb-3">
                         <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" placeholder="Email" required>
                         <div class="input-group-append">

@@ -26,6 +26,7 @@ Route::middleware('auth')->name('academico.')->prefix('academico')->group(functi
             Route::get('/create', [ProvaController::class, 'create'])->name('create');
             Route::post('/store', [ProvaController::class, 'store'])->name('store');
             Route::get('/index', [UserDisciplinaController::class, 'index'])->name('index');
+            Route::get('/provas-json', [ProvaController::class, 'getJson'])->name('getJson');
         });
     });
 });

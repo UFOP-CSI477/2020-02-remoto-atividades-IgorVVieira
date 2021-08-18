@@ -10,7 +10,7 @@ class UserDisciplina extends Model
     use HasFactory;
 
     protected $fillable = [
-        'staus',
+        'status',
         'user_id',
         'disciplina_id',
     ];

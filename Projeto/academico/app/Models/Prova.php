@@ -12,9 +12,11 @@ class Prova extends Model
     protected $fillable = [
         'nome',
         'observacao',
-        'data',
+        'data_inicio',
+        'data_termino',
         'valor',
         'resultado',
+        'status',
         'user_id',
         'disciplina_id',
     ];

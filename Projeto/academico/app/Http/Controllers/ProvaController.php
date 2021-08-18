@@ -23,14 +23,37 @@ class ProvaController extends Controller
         return view('prova.create', ['disciplinas' => $disciplinas]);
     }
 
+    public function getJson()
+    {
+        $provas = Prova::whereHas('user', function ($query) {
+            $query->where('user_id', Auth::user()->id);
+        })->get();
+
+        foreach ($provas as $prova) {
+            $data[] = array(
+                'id' => $prova->id,
+                'title' => $prova->nome,
+                'description' => $prova->observacao,
+                'start' => $prova->data_inicio,
+                'end' => isset($prova->data_termino) ? $prova->data_termino : $prova->data_inicio,
+                'backgroundColor' => '#0073b7',
+                'borderColor' => '#0073b7',
+            );
+        }
+
+        return response()->json($data);
+    }
+
     public function store(Request $request)
     {
         try {
             Prova::create([
                 'nome' => $request->nome,
                 'observacao' => $request->observacao,
-                'data' => $request->data,
+                'data_inicio' => $request->data_inicio,
+                'data_termino' => isset($request->data_termino) ? $request->data_termino : null,
                 'valor' => $request->valor,
+                'status' => 0,
                 'user_id' => Auth::user()->id,
                 'disciplina_id' => $request->disciplina_id,
             ]);

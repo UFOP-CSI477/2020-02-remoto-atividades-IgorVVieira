@@ -7,7 +7,7 @@
     <div class="sidebar">
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="info">
-                <a href="#" class="d-block">{{ Auth::user()->name }} Teste</a>
+                <a href="#" class="d-block">{{ Auth::user()->name }}</a>
             </div>
         </div>
 
@@ -66,7 +66,7 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ route('academico.disciplina.create') }}" class="nav-link">
+                            <a href="{{ route('academico.disciplina.prova.create') }}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Cadastrar</p>
                             </a>

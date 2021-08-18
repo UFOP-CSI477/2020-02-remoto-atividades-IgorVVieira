@@ -21,6 +21,12 @@ Route::middleware('auth')->name('academico.')->prefix('academico')->group(functi
         Route::get('/create', [UserDisciplinaController::class, 'create'])->name('create');
         Route::post('/store', [UserDisciplinaController::class, 'store'])->name('store');
         Route::get('/index', [UserDisciplinaController::class, 'index'])->name('index');
+
+        Route::name('prova.')->prefix('prova')->group(function () {
+            Route::get('/create', [ProvaController::class, 'create'])->name('create');
+            Route::post('/store', [ProvaController::class, 'store'])->name('store');
+            Route::get('/index', [UserDisciplinaController::class, 'index'])->name('index');
+        });
     });
 });
 

@@ -34,6 +34,7 @@
                                                 <th>Nome</th>
                                                 <th>Código(s)</th>
                                                 <th>Perído</th>
+                                                <th>Acessar</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -43,6 +44,11 @@
                                                     <td>{{ $disciplina->nome }}</td>
                                                     <td>{{ $disciplina->codigo }}</td>
                                                     <td>{{ $disciplina->periodo }}</td>
+                                                    <td class="align-center text-center">
+                                                        <a href="{{ route('academico.disciplina.show', ['id' => $disciplina->id]) }}" class="btn btn-info btn-circle">
+                                                            <i class="fas fa-pencil-alt"></i>
+                                                        </a>
+                                                    </td>
                                                 </tr>
                                             @endforeach
                                         </tbody>
@@ -52,6 +58,7 @@
                                                 <th>Nome</th>
                                                 <th>Código(s)</th>
                                                 <th>Perído</th>
+                                                <th>Acessar</th>
                                             </tr>
                                         </tfoot>
                                     </table>

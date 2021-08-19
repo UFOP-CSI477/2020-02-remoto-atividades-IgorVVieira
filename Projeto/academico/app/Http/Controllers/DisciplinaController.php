@@ -3,9 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Disciplina;
-use App\Models\UserDisciplina;
-use App\Models\User;
+use App\Models\{Disciplina, UserDisciplina, User, Message};
 use Illuminate\Support\Facades\Auth;
 
 class DisciplinaController extends Controller
@@ -41,7 +39,23 @@ class DisciplinaController extends Controller
 
     public function show($id)
     {
-        //
+        $disciplina = Disciplina::findOrFail($id);
+        $quantidadeCursando = UserDisciplina::where('disciplina_id', $id)->where('status', 0)->count();
+
+        $quantidadeCursou = UserDisciplina::where('disciplina_id', $id)->where('status', 1)->count();
+        $mensagens = Message::where('disciplina_id', $id)->with('user')->get();
+
+        $users = User::whereHas('disciplinas', function ($query) use ($id) {
+            $query->where('disciplinas.id', $id);
+        })->get();
+
+        return view('disciplina.show', [
+            'disciplina' => $disciplina,
+            'quantidadeCursando' => $quantidadeCursando,
+            'quantidadeCursou' => $quantidadeCursou,
+            'mensagens' => $mensagens,
+            'users' => $users,
+        ]);
     }
 
     public function edit($id)

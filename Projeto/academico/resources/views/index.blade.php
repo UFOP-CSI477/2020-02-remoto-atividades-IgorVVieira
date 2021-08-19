@@ -88,7 +88,7 @@
                                     <div class="card-body">
                                         <div class="input-group">
                                             <div class="input-group-append">
-                                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">
+                                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalNovaProva">
                                                     Abrir
                                                 </button>
                                             </div>
@@ -112,7 +112,7 @@
         @include('layouts.footer')
     </div>
 
-    <div class="modal fade" id="modal-default">
+    <div class="modal fade" id="modalNovaProva">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
@@ -162,6 +162,68 @@
                                     <div class="modal-footer justify-content-between">
                                         <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
                                         <button id="btnNovaProva" type="submit" class="btn btn-primary">Cadastrar</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalUpdateProva">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Atualizar atividade avaliativa</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card card-primary">
+                                <form id="formUpdateProva" method="POST" action="{{ route('academico.disciplina.prova.update') }}">
+                                    @csrf
+                                    @method('PUT')
+                                    <input type="hidden" id="prova_id" name="id">
+                                    <div class="card-body">
+                                        <div class="form-group col-lg-6">
+                                            <div class="form-group">
+                                                <label for="nome_update">Nome</label>
+                                                <input type="text" name="nome" class="form-control" id="nome_update" placeholder="e.g. Prova 1" required maxlength="50">
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-lg-6">
+                                            <label for="observacao_update">Observação <small class="text-navy text-danger">Opcional</small></label>
+                                            <textarea name="observacao" class="form-control" id="observacao_update" placeholder="Descrição da manutenção/problema" required maxlength="191"> </textarea>
+                                        </div>
+                                        <div class="form-group col-lg-4">
+                                            <label for="data_inicio_update">Data de iníco</label>
+                                            <input type="date" name="data_inicio" class="form-control" id="data_inicio_update" required>
+                                        </div>
+                                        <div class="form-group col-lg-4">
+                                            <label for="data_termino_update">Data de término <small class="text-info">Opcional</small></label>
+                                            <input type="date" name="data_termino" class="form-control" id="data_termino_update">
+                                        </div>
+                                        <div class="form-group col-lg-4">
+                                            <label for="valor_update">Valor</label>
+                                            <input type="text" name="valor" class="form-control" id="valor_update" required>
+                                        </div>
+                                        <div class="form-group col-6">
+                                            <label for="disciplina_update">Disciplina</label>
+                                            <select id="disciplina_update" name="disciplina_id" class="form-control select2" required data-placeholder="Selecione a disciplina">
+                                                @foreach ($disciplinas as $disciplina)
+                                                    <option value="{{ $disciplina->id }}">{{ $disciplina->nome }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer justify-content-between">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                                        <button id="btnUpdateProva" type="submit" class="btn btn-primary">Atualizar</button>
                                     </div>
                                 </form>
                             </div>
@@ -235,14 +297,6 @@
 
                     // store the Event Object in the DOM element so we can get to it later
                     $(this).data('eventObject', eventObject)
-
-                    // make the event draggable using jQuery UI
-                    $(this).draggable({
-                        zIndex: 1070,
-                        revert: true, // will cause the event to go back to its
-                        revertDuration: 0 //  original position after the drag
-                    })
-
                 })
             }
 
@@ -273,48 +327,25 @@
                 themeSystem: 'bootstrap',
 
                 events: "{{ route('academico.disciplina.prova.getJson') }}",
+                eventClick: function(info) {
+                    console.log(moment(info.event.start).format('DD/MM/YYYY'))
+                    var modal = $('#modalUpdateProva');
+                    modal.find('input[name="id"]').val(info.event.id);
+                    modal.find('input[name="nome"]').val(info.event.title);
+                    modal.find('input[name="observacao"]').html(info.event.description);
+                    modal.find('input[name="data_inicio"]').val(moment(info.event.start).format('DD/MM/YYYY'));
+                    modal.find('input[name="data_termino"]').val(moment(info.event.end).format('DD/MM/YYYY'));
+                    modal.find('input[name="valor"]').val(info.event.extendedProps.valor);
+                    modal.find('input[name="resultado"]').val(info.event.extendedProps.resultado);
+                    modal.find('select[id="disciplina_id"]').val(info.event.extendedProps.disciplina_id);
+                    modal.find('select[id="disciplina_id"]').trigger('change');
+                    modal.modal('show');
+                },
 
                 editable: true,
                 droppable: false, // this allows things to be dropped onto the calendar !!!
             });
             calendar.render();
-
-            /* ADDING EVENTS */
-            var currColor = '#3c8dbc' //Red by default
-            // Color chooser button
-            // $('#color-chooser > li > a').click(function(e) {
-            //     e.preventDefault()
-            //     // Save color
-            //     currColor = $(this).css('color')
-            //     // Add color effect to button
-            //     $('#add-new-event').css({
-            //         'background-color': currColor,
-            //         'border-color': currColor
-            //     })
-            // }) $('#add-new-event').click(function(e) {
-            //     e.preventDefault()
-            //     // Get value and make sure it is not null
-            //     var val = $('#new-event').val()
-            //     if (val.length == 0) {
-            //         return
-            //     }
-
-            //     // Create events
-            //     var event = $('<div />')
-            //     event.css({
-            //         'background-color': currColor,
-            //         'border-color': currColor,
-            //         'color': '#fff'
-            //     }).addClass('external-event')
-            //     event.text(val)
-            //     $('#external-events').prepend(event)
-
-            //     // Add draggable funtionality
-            //     ini_events(event)
-
-            //     // Remove event from text input
-            //     $('#new-event').val('')
-            // })
         });
     </script>
 @endsection

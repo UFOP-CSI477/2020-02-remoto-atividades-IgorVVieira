@@ -3,9 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\UserDisciplina;
-use App\Models\Disciplina;
-use App\Models\User;
+use App\Models\{UserDisciplina, Disciplina, User};
 use Illuminate\Support\Facades\Auth;
 
 class UserDisciplinaController extends Controller

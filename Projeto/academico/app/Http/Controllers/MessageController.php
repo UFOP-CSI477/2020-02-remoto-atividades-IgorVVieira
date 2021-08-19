@@ -3,41 +3,27 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Message;
+use Illuminate\Support\Facades\Auth;
 
 class MessageController extends Controller
 {
-    public function index()
-    {
-        //
-    }
-
-    public function create()
-    {
-        //
-    }
-
     public function store(Request $request)
     {
-        //
-    }
+        try {
+            $mensagem = Message::create([
+                'mensagem' => $request->mensagem,
+                'user_id' => Auth::user()->id,
+                'disciplina_id' => $request->disciplina_id,
+            ]);
 
-    public function show($id)
-    {
-        //
-    }
-
-    public function edit($id)
-    {
-        //
-    }
-
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    public function destroy($id)
-    {
-        //
+            $response['mensagem'] = $mensagem;
+            $response['success'] = 'Mensagem enviada com sucesso.';
+            return response()->json($response);
+        } catch (\Throwable $th) {
+            report($th);
+            $response['error'] = 'Erro ao enviar mensagem. Tente novamente.';
+            return response()->json($response);
+        }
     }
 }

@@ -3,9 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Prova;
-use App\Models\Disciplina;
-use App\Models\UserDisciplina;
+use App\Models\{Prova, Disciplina, UserDisciplina};
 use Illuminate\Support\Facades\Auth;
 
 class ProvaController extends Controller
@@ -38,6 +36,11 @@ class ProvaController extends Controller
                 'end' => isset($prova->data_termino) ? $prova->data_termino : $prova->data_inicio,
                 'backgroundColor' => '#0073b7',
                 'borderColor' => '#0073b7',
+                'extendedProps' => [
+                    'valor'   => $prova->valor,
+                    'resultado' => $prova->resultado,
+                    'disciplina_i' => $prova->disciplina_id
+                ]
             );
         }
 

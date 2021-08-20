@@ -27,7 +27,7 @@
                     <div class="row">
                         <div class="col-12 col-sm-6 col-md-3">
                             <div class="info-box">
-                                <span class="info-box-icon bg-info elevation-1"><i class="fas fa-thumbs-up"></i></span>
+                                <span class="info-box-icon bg-info elevation-1"><i class="fas fa-users"></i></span>
 
                                 <div class="info-box-content">
                                     <span class="info-box-text">Alunos cursando</span>
@@ -45,17 +45,6 @@
                                 <div class="info-box-content">
                                     <span class="info-box-text">Alunos aprovados</span>
                                     <span class="info-box-number">{{ $quantidadeCursou }}</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-12 col-sm-6 col-md-3">
-                            <div class="info-box mb-3">
-                                <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-users"></i></span>
-
-                                <div class="info-box-content">
-                                    <span class="info-box-text">Alunos cursando</span>
-                                    <span class="info-box-number">{{ $users->count() }}</span>
                                 </div>
                             </div>
                         </div>
@@ -89,7 +78,7 @@
                                             <div class="direct-chat-msg @if ($mensagem->user_id == Auth::user()->id) right @endif">
                                                 <div class="direct-chat-infos clearfix">
                                                     <span class="direct-chat-name @if ($mensagem->user_id == Auth::user()->id) float-right @else float-left @endif">{{ $mensagem->user->name }}</span>
-                                                    <span class="direct-chat-timestamp @if ($mensagem->user_id == Auth::user()->id) float-left @else float-right @endif">{{ $mensagem->created_at }}</span>
+                                                    <span class="direct-chat-timestamp @if ($mensagem->user_id == Auth::user()->id) float-left @else float-right @endif">{{ data_hora($mensagem->created_at) }}</span>
                                                 </div>
                                                 <i class="direct-chat-img fas fa-user fa-2x"></i>
                                                 <div class="direct-chat-text">
@@ -99,7 +88,6 @@
                                         @endforeach
                                     </div>
 
-                                    <!-- Contacts are loaded here -->
                                     <div class="direct-chat-contacts">
                                         <ul class="contacts-list">
                                             <li>

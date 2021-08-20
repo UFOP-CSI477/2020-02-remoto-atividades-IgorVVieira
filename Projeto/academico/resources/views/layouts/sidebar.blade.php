@@ -14,15 +14,15 @@
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <li class="nav-item menu-open">
-                    <a href="{{ route('academico.dashboard') }}" class="nav-link active">
+                    <a href="{{ route('academico.dashboard') }}" class="nav-link {{ menu_ativado('academico.dashboard') }}">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>
                             Dashboard
                         </p>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
+                <li class="nav-item {{ menu_open('academico.disciplina.') }}">
+                    <a href="#" class="nav-link {{ menu_ativado('academico.disciplina.') }}">
                         <i class=" nav-icon fas fa-book"></i>
                         <p>
                             Disciplinas
@@ -31,13 +31,13 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ route('academico.disciplina.create') }}" class="nav-link">
+                            <a href="{{ route('academico.disciplina.create') }}" class="nav-link {{ menu_ativado('academico.disciplina.create') }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Vincular</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('academico.disciplina.index') }}" class="nav-link">
+                            <a href="{{ route('academico.disciplina.index') }}" class="nav-link {{ menu_ativado('academico.disciplina.index') }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Minhas</p>
                             </a>

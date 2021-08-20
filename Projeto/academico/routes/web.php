@@ -1,13 +1,9 @@
 <?php
 
 use App\Http\Controllers\DisciplinaController;
-use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\{Route, Auth};
 
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\ProvaController;
-use App\Http\Controllers\MessageController;
-use App\Http\Controllers\UserDisciplinaController;
+use App\Http\Controllers\{UserController, ProvaController, MessageController, UserDisciplinaController};
 
 Route::get('/', function () {
     return view('auth.login');
@@ -21,7 +17,7 @@ Route::middleware('auth')->name('academico.')->prefix('academico')->group(functi
     Route::name('disciplina.')->prefix('disciplina')->group(function () {
         Route::get('/create', [UserDisciplinaController::class, 'create'])->name('create');
         Route::post('/store', [UserDisciplinaController::class, 'store'])->name('store');
-        Route::get('/show/{id}',[DisciplinaController::class, 'show'])->name('show');
+        Route::get('/show/{id}', [DisciplinaController::class, 'show'])->name('show');
         Route::get('/index', [UserDisciplinaController::class, 'index'])->name('index');
 
         Route::name('prova.')->prefix('prova')->group(function () {
@@ -33,7 +29,7 @@ Route::middleware('auth')->name('academico.')->prefix('academico')->group(functi
         });
     });
 
-    Route::name('mensagem.')->prefix('mensagem')->group(function(){
+    Route::name('mensagem.')->prefix('mensagem')->group(function () {
         Route::post('/store', [MessageController::class, 'store'])->name('store');
     });
 });

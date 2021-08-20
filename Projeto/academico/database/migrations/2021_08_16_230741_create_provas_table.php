@@ -11,7 +11,7 @@ class CreateProvasTable extends Migration
         Schema::create('provas', function (Blueprint $table) {
             $table->id();
             $table->string('nome');
-            $table->text('observacao');
+            $table->text('observacao')->nullable();
             $table->date('data_inicio');
             $table->date('data_termino')->nullable();
             $table->decimal('valor', 5, 2)->default(0);

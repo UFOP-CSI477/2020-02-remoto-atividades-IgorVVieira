@@ -34,7 +34,7 @@
                                                 <th>Nome</th>
                                                 <th>Código(s)</th>
                                                 <th>Perído</th>
-                                                <th>Acessar</th>
+                                                <th class="text-center">Ações</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -43,10 +43,13 @@
                                                     <td>{{ $disciplina->id }}</td>
                                                     <td>{{ $disciplina->nome }}</td>
                                                     <td>{{ $disciplina->codigo }}</td>
-                                                    <td>{{ $disciplina->periodo }}</td>
+                                                    <td class="text-center">{{ $disciplina->periodo }}</td>
                                                     <td class="align-center text-center">
-                                                        <a href="{{ route('academico.disciplina.show', ['id' => $disciplina->id]) }}" class="btn btn-info btn-circle">
-                                                            <i class="fas fa-pencil-alt"></i>
+                                                        <a title="Fórum geral" href="{{ route('academico.disciplina.show', ['id' => $disciplina->id]) }}" class="btn btn-info btn-circle">
+                                                            <i class="far fa-envelope"></i>
+                                                        </a>
+                                                        <a title="Minhas notas" href="{{ route('academico.disciplina.show', ['id' => $disciplina->id]) }}" class="btn btn-info btn-circle">
+                                                            <i class="far fa-clipboard"></i>
                                                         </a>
                                                     </td>
                                                 </tr>

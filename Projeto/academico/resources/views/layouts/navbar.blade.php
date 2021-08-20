@@ -7,7 +7,10 @@
             <a href="{{ route('academico.dashboard') }}" class="nav-link">Home</a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-            <a href="#" class="nav-link">Contact</a>
+            <form action="{{ route('logout') }}" method="post">
+                @csrf
+                <button type="submit" class="btn btn-danger">Sair</button>
+            </form>
         </li>
     </ul>
 

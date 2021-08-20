@@ -39,7 +39,11 @@ class ProvaController extends Controller
                 'extendedProps' => [
                     'valor'   => $prova->valor,
                     'resultado' => $prova->resultado,
-                    'disciplina_i' => $prova->disciplina_id
+                    'disciplina_id' => $prova->disciplina_id,
+                    'data_inicio' => $prova->data_inicio,
+                    'data_termino' => $prova->data_termino,
+                    'resultado' => $prova->resultado,
+                    'status' => $prova->status,
                 ]
             );
         }
@@ -54,7 +58,7 @@ class ProvaController extends Controller
                 'nome' => $request->nome,
                 'observacao' => $request->observacao,
                 'data_inicio' => $request->data_inicio,
-                'data_termino' => isset($request->data_termino) ? $request->data_termino : null,
+                'data_termino' => isset($request->data_termino) ? $request->data_termino : $request->data_inicio,
                 'valor' => $request->valor,
                 'status' => 0,
                 'user_id' => Auth::user()->id,
@@ -69,19 +73,28 @@ class ProvaController extends Controller
         }
     }
 
-    public function show($id)
+    public function update(Request $request)
     {
-        //
-    }
-
-    public function edit($id)
-    {
-        //
-    }
-
-    public function update(Request $request, $id)
-    {
-        //
+        try {
+            $prova = Prova::FindOrFail($request->id);
+            $prova->update([
+                'nome' => $request->nome,
+                'observacao' => $request->observacao,
+                'data_inicio' => $request->data_inicio,
+                'data_termino' => $request->data_termino,
+                'valor' => $request->valor,
+                'disciplina_id' => $request->disciplina_id,
+                'resultado' => $request->resultado,
+                'status' => $request->status,
+            ]);
+            $request->session()->flash('success', 'Atividade avaliativa atualizada com sucesso');
+            return redirect()->back();
+        } catch (\Throwable $th) {
+            throw $th;
+            report($th);
+            $request->session()->flash('error', 'Erro ao atualizar atividade avaliativa');
+            return redirect()->back();
+        }
     }
 
     public function destroy($id)

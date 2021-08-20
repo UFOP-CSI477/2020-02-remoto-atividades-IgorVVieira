@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\{Disciplina, UserDisciplina, User, Message};
+use App\Models\{Disciplina, UserDisciplina, User, Message, Prova};
 use Illuminate\Support\Facades\Auth;
 
 class DisciplinaController extends Controller
@@ -17,24 +17,6 @@ class DisciplinaController extends Controller
     public function create()
     {
         return view('disciplina.create');
-    }
-
-    public function store(Request $request)
-    {
-        try {
-            $disciplina = Disciplina::create([
-                'nome' => $request->nome,
-                'codigo' => $request->codigo,
-                'periodo' => $request->periodo,
-            ]);
-
-            $request->session()->flash('success', 'Disciplina cadastrada com sucesso');
-            return redirect()->route('academico.dashboard');
-        } catch (\Throwable $th) {
-            report($th);
-            $request->session()->flash('error', 'Erro ao cadastrar a disciplina. Tente novamente.');
-            return redirect()->back();
-        }
     }
 
     public function show($id)
@@ -58,26 +40,11 @@ class DisciplinaController extends Controller
         ]);
     }
 
-    public function edit($id)
+    public function minhasNotas($id)
     {
-        //
-    }
+        $disciplina = Disciplina::with('provas')->findOrFail($id);
+        $notaTotal = Prova::selectRaw('SUM(resultado) as total')->where('disciplina_id', $id)->firstOrfail();
 
-    public function update(Request $request, $id)
-    {
-        try {
-            //code...
-        } catch (\Throwable $th) {
-            report($th);
-        }
-    }
-
-    public function destroy($id)
-    {
-        try {
-            //code...
-        } catch (\Throwable $th) {
-            report($th);
-        }
+        return view('disciplina.minhasNotas', ['disciplina' => $disciplina, 'notaTotal' => $notaTotal]);
     }
 }

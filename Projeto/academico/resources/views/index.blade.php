@@ -245,7 +245,6 @@
 
         <script>
             $(function() {
-
                 $('#formNovaProva').validate({
                     rules: {
                         nome: {

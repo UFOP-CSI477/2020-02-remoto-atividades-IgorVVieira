@@ -17,10 +17,10 @@ class Disciplina extends Model
 
     public function provas()
     {
-        $this->hasMany(Prova::class, 'disciplina_id', 'id');
+        return $this->hasMany(Prova::class, 'disciplina_id', 'id');
     }
 
-    public function disciplinas()
+    public function users()
     {
         return $this->belongsToMany(User::class, UserDisciplina::class, 'disciplina_id', 'user_id');
     }

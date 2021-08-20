@@ -8,11 +8,6 @@ use Illuminate\Support\Facades\Auth;
 
 class ProvaController extends Controller
 {
-    public function index()
-    {
-        //
-    }
-
     public function create()
     {
         $disciplinasCursadas = UserDisciplina::selectRaw('disciplina_id')->where('user_id', Auth::user()->id)->get();
@@ -54,6 +49,13 @@ class ProvaController extends Controller
     public function store(Request $request)
     {
         try {
+            $notaTotal = Prova::selectRaw('SUM(resultado) as total')->where('disciplina_id', $request->disciplina_id)->firstOrFail();
+
+            if ($notaTotal + $request->valor > 100) {
+                $request->session()->flash('warning', 'A nota total não pode ser maior que 100.');
+                return redirect()->route('academico.dashboard');
+            }
+
             Prova::create([
                 'nome' => $request->nome,
                 'observacao' => $request->observacao,
@@ -76,6 +78,13 @@ class ProvaController extends Controller
     public function update(Request $request)
     {
         try {
+            $notaTotal = Prova::selectRaw('SUM(resultado) as total')->where('disciplina_id', $request->disciplina_id)->firstOrFail();
+
+            if ($notaTotal + $request->valor > 100 || $notaTotal + $request->resultado || $request->valor < $request->resultado) {
+                $request->session()->flash('warning', 'A nota total não pode ser maior que 100.');
+                return redirect()->route('academico.dashboard');
+            }
+
             $prova = Prova::FindOrFail($request->id);
             $prova->update([
                 'nome' => $request->nome,
@@ -95,10 +104,5 @@ class ProvaController extends Controller
             $request->session()->flash('error', 'Erro ao atualizar atividade avaliativa');
             return redirect()->back();
         }
-    }
-
-    public function destroy($id)
-    {
-        //
     }
 }

@@ -48,7 +48,7 @@
                                                         <a title="Fórum geral" href="{{ route('academico.disciplina.show', ['id' => $disciplina->id]) }}" class="btn btn-info btn-circle">
                                                             <i class="far fa-envelope"></i>
                                                         </a>
-                                                        <a title="Minhas notas" href="{{ route('academico.disciplina.show', ['id' => $disciplina->id]) }}" class="btn btn-info btn-circle">
+                                                        <a title="Minhas notas" href="{{ route('academico.disciplina.minhasNotas', ['id' => $disciplina->id]) }}" class="btn btn-info btn-circle">
                                                             <i class="far fa-clipboard"></i>
                                                         </a>
                                                     </td>

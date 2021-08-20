@@ -17,28 +17,6 @@ if (!function_exists('data_hora')) {
     }
 }
 
-if (!function_exists('get_tipo_registro')) {
-    function get_tipo_registro($tipo)
-    {
-        $label = "";
-        switch ($tipo) {
-            case 1:
-                $label = '<button class="btn btn-primary">Preventiva</button>';
-                break;
-            case 2:
-                $label = '<button class="btn btn-warning">Corretiva</button><br>';
-                break;
-            case 3:
-                $label = '<button class="btn btn-danger">Urgente</button><br>';
-                break;
-            default:
-                $label = '<button class="btn btn-primary">Preventiva</button><br>';
-                break;
-        }
-        return $label;
-    }
-}
-
 if (!function_exists('menu_ativado')) {
     function menu_ativado($route)
     {

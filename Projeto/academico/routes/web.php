@@ -19,7 +19,8 @@ Route::middleware('auth')->name('academico.')->prefix('academico')->group(functi
         Route::post('/store', [UserDisciplinaController::class, 'store'])->name('store');
         Route::get('/show/{id}', [DisciplinaController::class, 'show'])->name('show');
         Route::get('/index', [UserDisciplinaController::class, 'index'])->name('index');
-        Route::get('/minhas-notas,/{id}', [DisciplinaController::class, 'minhasNotas'])->name('minhasNotas');
+        Route::get('/minhas-notas/{id}', [DisciplinaController::class, 'minhasNotas'])->name('minhasNotas');
+        Route::post('/finalizar', [UserDisciplinaController::class, 'finalizar'])->name('finalizar');
 
         Route::name('prova.')->prefix('prova')->group(function () {
             Route::get('/create', [ProvaController::class, 'create'])->name('create');

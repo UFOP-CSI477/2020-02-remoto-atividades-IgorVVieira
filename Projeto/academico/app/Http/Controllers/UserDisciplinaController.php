@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\{UserDisciplina, Disciplina, User};
+use App\Models\{UserDisciplina, Disciplina, User, Prova};
 use Illuminate\Support\Facades\Auth;
 
 class UserDisciplinaController extends Controller
@@ -40,23 +40,25 @@ class UserDisciplinaController extends Controller
         }
     }
 
-    public function show($id)
+    public function finalizar(Request $request)
     {
-        //
-    }
+        try {
+            $userDisciplina = UserDisciplina::where('user_id', Auth::user()->id)
+                ->where('disciplina_id', $request->id)->firstOrFail();
+            $notaTotal = Prova::selectRaw('SUM(resultado) as total')->where('disciplina_id', $request->id)->firstOrfail();
 
-    public function edit($id)
-    {
-        //
-    }
-
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    public function destroy($id)
-    {
-        //
+            if ($notaTotal->total >= 60) {
+                $userDisciplina->status = 1;
+                $request->session()->flash('success', 'Discciplina finalizada com sucesso, você foi aprovado.');
+            } else {
+                $userDisciplina->status = 2;
+                $request->session()->flash('warning', 'Discciplina finalizada com sucesso, você foi reprovado.');
+            }
+            $userDisciplina->save();
+            return redirect()->route('academico.dashboard');
+        } catch (\Throwable $th) {
+            report($th);
+            return redirect()->route('academico.dashboard');
+        }
     }
 }

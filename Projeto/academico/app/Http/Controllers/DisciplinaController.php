@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\{Disciplina, UserDisciplina, User, Message, Prova};
 use Illuminate\Support\Facades\Auth;
 
@@ -44,7 +43,11 @@ class DisciplinaController extends Controller
     {
         $disciplina = Disciplina::with('provas')->findOrFail($id);
         $notaTotal = Prova::selectRaw('SUM(resultado) as total')->where('disciplina_id', $id)->firstOrfail();
+        $userDisciplina = UserDisciplina::where('user_id', Auth::user()->id)->where('disciplina_id', $id)->firstOrFail();
 
-        return view('disciplina.minhasNotas', ['disciplina' => $disciplina, 'notaTotal' => $notaTotal]);
+        return view(
+            'disciplina.minhasNotas',
+            ['disciplina' => $disciplina, 'notaTotal' => $notaTotal, 'userDisciplina' => $userDisciplina]
+        );
     }
 }

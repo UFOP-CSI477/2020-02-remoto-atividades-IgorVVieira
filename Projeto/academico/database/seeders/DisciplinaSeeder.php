@@ -40,9 +40,9 @@ class DisciplinaSeeder extends Seeder
         ]);
 
         Disciplina::create([
-            'nome' => 'Programação de computadores I',
+            'nome' => 'Programação de computadores II',
             'codigo' => 'CSI202',
-            'periodo' => 1,
+            'periodo' => 2,
         ]);
     }
 }

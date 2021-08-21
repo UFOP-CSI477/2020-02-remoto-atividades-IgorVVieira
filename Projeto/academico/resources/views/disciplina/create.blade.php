@@ -43,7 +43,7 @@
                                         </div>
                                     </div>
                                     <div class="card-footer">
-                                        <button id="btnNovaDisciplina" type="submit" class="btn btn-primary">Cadastrar</button>
+                                        <button id="btnNovaDisciplina" type="submit" class="btn btn-primary">Vincular</button>
                                     </div>
                                 </form>
                             </div>

@@ -2,27 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\{Prova, Disciplina, UserDisciplina};
 
 class HomeController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
     public function __construct()
     {
         $this->middleware('auth');
     }
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
     public function index()
     {
         $disciplinas = Auth::user()->disciplinas;
@@ -45,10 +34,14 @@ class HomeController extends Controller
         $disciplinasCursando = UserDisciplina::where('user_id', Auth::user()->id)
             ->where('status', 0)->count();
 
-        $disciplinasCursadas = UserDisciplina::where('user_id', Auth::user()->id)
+        $disciplinasAprovadas = UserDisciplina::where('user_id', Auth::user()->id)
             ->where('status', 1)->count();
 
-        $disciplinasAtuais = UserDisciplina::selectRaw('disciplina_id')->where('user_id', Auth::user()->id)->get();
+        $disciplinasReprovadas = UserDisciplina::where('user_id', Auth::user()->id)
+            ->where('status', 2)->count();
+
+        $disciplinasAtuais = UserDisciplina::selectRaw('disciplina_id')->where('user_id', Auth::user()->id)
+            ->where('status', 0)->get();
         $disciplinas = Disciplina::whereIn('id', $disciplinasAtuais->pluck('disciplina_id'))->get();
 
         return view(
@@ -57,7 +50,8 @@ class HomeController extends Controller
                 'provasAbertas' => $provasAbertas,
                 'provasFinalizadas' => $provasFinalizadas,
                 'disciplinasCursando' => $disciplinasCursando,
-                'disciplinasCursadas' => $disciplinasCursadas,
+                'disciplinasAprovadas' => $disciplinasAprovadas,
+                'disciplinasReprovadas' => $disciplinasReprovadas,
                 'disciplinasAtuais' => $disciplinasAtuais,
                 'disciplinas' => $disciplinas,
             ]

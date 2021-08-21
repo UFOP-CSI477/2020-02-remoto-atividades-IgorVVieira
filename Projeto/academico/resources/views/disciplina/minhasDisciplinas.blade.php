@@ -84,6 +84,13 @@
                 responsive: true,
                 lengthChange: false,
                 autoWidth: false,
+                language: {
+                    paginate: {
+                        previous: "Anterior",
+                        next: "Próximo"
+                    },
+                    search: 'Pesquisar'
+                },
                 buttons: ['copy', 'csv', 'excel', 'pdf', 'print']
             }).buttons().container().appendTo('#tableDisciplinas_wrapper .col-md-6:eq(0)');
         });

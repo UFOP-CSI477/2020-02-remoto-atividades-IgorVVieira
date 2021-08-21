@@ -40,6 +40,8 @@
 <!-- jquery-validation -->
 <script src="{{ asset('assets/jquery-validation/jquery.validate.min.js') }}"></script>
 <script src="{{ asset('assets/jquery-validation/additional-methods.min.js') }}"></script>
+<!-- Jquery mask -->
+<script src="{{ asset('assets/jquery/jquery.mask.js') }}"></script>
 <!-- Bootstrap -->
 <script src="{{ asset('assets/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 <!-- overlayScrollbars -->

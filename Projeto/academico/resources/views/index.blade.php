@@ -2,6 +2,7 @@
 
 @section('styles')
     <link rel="stylesheet" href="{{ asset('assets/fullcalendar/main.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/summernote/summernote-bs4.min.css') }}">
 @endsection
 
 @section('content')
@@ -30,8 +31,7 @@
                     <div class="row">
                         <div class="col-12 col-sm-6 col-md-3">
                             <div class="info-box">
-                                <span class="info-box-icon bg-info elevation-1"><i class="fas fa-cog"></i></span>
-
+                                <span class="info-box-icon bg-info elevation-1"><i class="fas fa-book"></i></span>
                                 <div class="info-box-content">
                                     <span class="info-box-text">Avaliações abertas</span>
                                     <span class="info-box-number">
@@ -43,8 +43,7 @@
 
                         <div class="col-12 col-sm-6 col-md-3">
                             <div class="info-box mb-3">
-                                <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-thumbs-up"></i></span>
-
+                                <span class="info-box-icon bg-success elevation-1"><i class="fas fa-thumbs-up"></i></span>
                                 <div class="info-box-content">
                                     <span class="info-box-text">Avaliações finalizadas</span>
                                     <span class="info-box-number">{{ $provasFinalizadas }}</span>
@@ -56,8 +55,7 @@
 
                         <div class="col-12 col-sm-6 col-md-3">
                             <div class="info-box mb-3">
-                                <span class="info-box-icon bg-success elevation-1"><i class="fas fa-shopping-cart"></i></span>
-
+                                <span class="info-box-icon bg-default elevation-1"><i class="fas fa-university"></i></i></span>
                                 <div class="info-box-content">
                                     <span class="info-box-text">Disciplinas cursando</span>
                                     <span class="info-box-number">{{ $disciplinasCursando }}</span>
@@ -68,10 +66,12 @@
                         <div class="col-12 col-sm-6 col-md-3">
                             <div class="info-box mb-3">
                                 <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-users"></i></span>
-
                                 <div class="info-box-content">
                                     <span class="info-box-text">Disciplinas cursadas</span>
-                                    <span class="info-box-number">{{ $disciplinasCursadas }}</span>
+                                    <span class="info-box-number">
+                                        {{ $disciplinasAprovadas }}/{{ $disciplinasReprovadas }} <br>
+                                        Aprovadas/Reprovadas
+                                    </span>
                                 </div>
                             </div>
                         </div>
@@ -131,9 +131,9 @@
                                         <input type="text" name="nome" class="form-control" id="nome" placeholder="e.g. Prova 1" required maxlength="50">
                                     </div>
                                 </div>
-                                <div class="form-group col-lg-8">
+                                <div class="form-group col-lg-12">
                                     <label for="observacao">Observação <small class="text-info">Opcional</small></label>
-                                    <textarea name="observacao" class="form-control" id="observacao" placeholder="Descrição da manutenção/problema" required maxlength="191"> </textarea>
+                                    <textarea class="summernote" name="observacao" id="observacao"></textarea>
                                 </div>
                                 <div class="form-group col-lg-6">
                                     <label for="data_inicio">Data de iníco</label>
@@ -145,7 +145,7 @@
                                 </div>
                                 <div class="form-group col-lg-6">
                                     <label for="valor">Valor</label>
-                                    <input type="text" name="valor" class="form-control" id="valor" required>
+                                    <input type="text" name="valor" class="form-control nota" id="valor" required max="100" maxlength="6">
                                 </div>
                                 <div class="form-group col-6">
                                     <label for="disciplina">Disciplina</label>
@@ -189,9 +189,9 @@
                                         <input type="text" name="nome" class="form-control" id="nome_update" placeholder="e.g. Prova 1" required maxlength="50">
                                     </div>
                                 </div>
-                                <div class="form-group col-lg-8">
+                                <div class="form-group col-lg-12">
                                     <label for="observacao_update">Observação <small class="text-info">Opcional</small></label>
-                                    <textarea name="observacao" class="form-control" id="observacao_update" required maxlength="191"> </textarea>
+                                    <textarea class="summernote" name="observacao" id="observacao_update"></textarea>
                                 </div>
                                 <div class="form-group col-lg-6">
                                     <label for="data_inicio_update">Data de iníco</label>
@@ -203,7 +203,7 @@
                                 </div>
                                 <div class="form-group col-lg-6">
                                     <label for="valor_update">Valor</label>
-                                    <input type="text" name="valor" class="form-control" id="valor_update" required>
+                                    <input type="text" name="valor" class="form-control nota" id="valor_update" maxlength="6" max="100" required>
                                 </div>
                                 <div class="form-group col-6">
                                     <label for="disciplina_id_update">Disciplina</label>
@@ -216,7 +216,7 @@
 
                                 <div class="form-group col-lg-6">
                                     <label for="resultado_update">Resultado</label>
-                                    <input type="text" name="resultado" class="form-control" id="resultado_update" required>
+                                    <input type="text" name="resultado" class="form-control nota" id="resultado_update" maxlength="6" required>
                                 </div>
 
                                 <div class="form-group col-6">
@@ -236,127 +236,190 @@
                 </div>
             </div>
         </div>
-    @endsection
+    </div>
+@endsection
 
-    @section('scripts')
-        <script src="{{ asset('assets/moment/moment.min.js') }}"></script>
-        <script src="{{ asset('assets/fullcalendar/main.js') }}"></script>
-        <script src='{{ asset('assets/fullcalendar/locales/pt-br.js') }}'></script>
+@section('scripts')
+    <script src="{{ asset('assets/moment/moment.min.js') }}"></script>
+    <script src="{{ asset('assets/fullcalendar/main.js') }}"></script>
+    <script src='{{ asset('assets/fullcalendar/locales/pt-br.js') }}'></script>
+    <script src="{{ asset('assets/summernote/summernote-bs4.min.js') }}"></script>
 
-        <script>
-            $(function() {
-                $('#formNovaProva').validate({
-                    rules: {
-                        nome: {
-                            required: true,
-                        },
-                        data_inicio: {
-                            required: true,
-                        },
-                        disciplina: {
-                            required: true,
-                        },
-                    },
-                    messages: {
-                        nome: {
-                            required: 'Por favor, preencha este campo.',
-                        },
-                        data_inicio: {
-                            required: 'Por favor, preencha este campo.',
-                        },
-                    },
-                    errorElement: 'span',
-                    errorPlacement: function(error, element) {
-                        error.addClass('invalid-feedback');
-                        element.closest('.form-group').append(error);
-                    },
-                    highlight: function(element, errorClass, validClass) {
-                        $(element).addClass('is-invalid');
-                    },
-                    unhighlight: function(element, errorClass, validClass) {
-                        $(element).removeClass('is-invalid');
-                    }
-                });
-                $('.select2').select2();
-
-                $('#btnNovaProva').click((event) => {
-                    event.preventDefault();
-                    $('#btnNovaProva').prop('disabled', true);
-                    if ($('#formNovaProva').valid()) {
-                        $('#formNovaProva').submit();
-                    } else {
-                        $('#btnNovaProva').prop('disabled', false);
-                    }
-                });
-
-                $('#btnUpdateProva').click((event) => {
-                    event.preventDefault();
-                    $('#btnUpdateProva').prop('disabled', true);
-                    if ($('#formUpdateProva').valid()) {
-                        $('#formUpdateProva').submit();
-                    } else {
-                        $('#btnUpdateProva').prop('disabled', false);
-                    }
-                });
-
-                function ini_events(ele) {
-                    ele.each(function() {
-
-                        var eventObject = {
-                            title: $.trim($(this).text()) // use the element's text as the event title
-                        }
-
-                        $(this).data('eventObject', eventObject)
-                    })
-                }
-
-                ini_events($('#external-events div.external-event'))
-
-                var date = new Date()
-                var d = date.getDate(),
-                    m = date.getMonth(),
-                    y = date.getFullYear()
-
-                var Calendar = FullCalendar.Calendar;
-                var Draggable = FullCalendar.Draggable;
-
-                var containerEl = document.getElementById('external-events');
-                var checkbox = document.getElementById('drop-remove');
-                var calendarEl = document.getElementById('calendar');
-
-                var calendar = new Calendar(calendarEl, {
-                    locale: 'pt-br',
-                    headerToolbar: {
-                        left: 'prev,next today',
-                        center: 'title',
-                        right: 'dayGridMonth,timeGridWeek,timeGridDay'
-                    },
-                    themeSystem: 'bootstrap',
-
-                    events: "{{ route('academico.disciplina.prova.getJson') }}",
-                    eventClick: function(info) {
-                        console.log(info.event.extendedProps.data_inicio)
-                        let start = moment(info.event.start).format('YYYY/MM/DD');
-                        var modal = $('#modalUpdateProva');
-                        modal.find('input[name="id"]').val(info.event.id);
-                        modal.find('input[name="nome"]').val(info.event.title);
-                        modal.find('#observacao_update').val(info.event.extendedProps.description);
-                        modal.find('#data_inicio_update').val(info.event.extendedProps.data_inicio);
-                        modal.find('#data_termino_update').val(info.event.extendedProps.data_termino);
-                        modal.find('input[name="valor"]').val(info.event.extendedProps.valor);
-                        modal.find('input[name="resultado"]').val(info.event.extendedProps.resultado);
-                        modal.find('select[id="disciplina_id_update"]').val(info.event.extendedProps.disciplina_id);
-                        modal.find('select[id="disciplina_id_update"]').trigger('change');
-                        modal.find('input[name="resultado"]').val(info.event.extendedProps.resultado);
-                        modal.find('select[id="status"]').val(info.event.extendedProps.status);
-                        modal.find('select[id="status"]').trigger('change');
-                        modal.modal('show');
-                    },
-
-                    editable: true,
-                    droppable: false, // this allows things to be dropped onto the calendar !!!
-                });
-                calendar.render();
+    <script>
+        $(function() {
+            $('.summernote').summernote({
+                toolbar: [
+                    ['style', ['bold', 'italic', 'underline', 'clear']],
+                    ['font', ['strikethrough', 'superscript', 'subscript']],
+                    ['fontsize', ['fontsize']],
+                    ['color', ['color']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['height', ['height']]
+                ]
             });
-        </script>
-    @endsection
+
+            $('.nota').mask("#0.00", {
+                reverse: true
+            });
+
+            $('#formNovaProva').validate({
+                rules: {
+                    nome: {
+                        required: true,
+                    },
+                    data_inicio: {
+                        required: true,
+                    },
+                    valor: {
+                        required: true,
+                        max: 100,
+                    },
+                    disciplina: {
+                        required: true,
+                    },
+                },
+                messages: {
+                    nome: {
+                        required: 'Por favor, preencha este campo.',
+                    },
+                    valor: {
+                        require: 'Por favor, preeche este campo',
+                        max: 'Por favor, insira um valor menor ou igual a 100',
+                    },
+                    data_inicio: {
+                        required: 'Por favor, preencha este campo.',
+                    },
+                },
+                errorElement: 'span',
+                errorPlacement: function(error, element) {
+                    error.addClass('invalid-feedback');
+                    element.closest('.form-group').append(error);
+                },
+                highlight: function(element, errorClass, validClass) {
+                    $(element).addClass('is-invalid');
+                },
+                unhighlight: function(element, errorClass, validClass) {
+                    $(element).removeClass('is-invalid');
+                }
+            });
+
+            $('#formUpdateProva').validate({
+                rules: {
+                    nome: {
+                        required: true,
+                    },
+                    data_inicio: {
+                        required: true,
+                    },
+                    disciplina: {
+                        required: true,
+                    },
+                    resultado: {
+                        max: function() {
+                            const valorMaximo = $('#valor_update').val();
+                            return parseInt(valorMaximo);
+                        }
+                    },
+                },
+                messages: {
+                    nome: {
+                        required: 'Por favor, preencha este campo.',
+                    },
+                    resultado: {
+                        max: 'Por favor, insira um valor menor ou igual a {0}',
+                    },
+                    data_inicio: {
+                        required: 'Por favor, preencha este campo.',
+                    },
+                },
+                errorElement: 'span',
+                errorPlacement: function(error, element) {
+                    error.addClass('invalid-feedback');
+                    element.closest('.form-group').append(error);
+                },
+                highlight: function(element, errorClass, validClass) {
+                    $(element).addClass('is-invalid');
+                },
+                unhighlight: function(element, errorClass, validClass) {
+                    $(element).removeClass('is-invalid');
+                }
+            });
+            $('.select2').select2();
+
+            $('#btnNovaProva').click((event) => {
+                event.preventDefault();
+                $('#btnNovaProva').prop('disabled', true);
+                if ($('#formNovaProva').valid()) {
+                    $('#formNovaProva').submit();
+                } else {
+                    $('#btnNovaProva').prop('disabled', false);
+                }
+            });
+
+            $('#btnUpdateProva').click((event) => {
+                event.preventDefault();
+                $('#btnUpdateProva').prop('disabled', true);
+                if ($('#formUpdateProva').valid()) {
+                    $('#formUpdateProva').submit();
+                } else {
+                    $('#btnUpdateProva').prop('disabled', false);
+                }
+            });
+
+            function ini_events(ele) {
+                ele.each(function() {
+                    const eventObject = {
+                        title: $.trim($(this).text()),
+                    }
+                    $(this).data('eventObject', eventObject)
+                });
+            }
+
+            ini_events($('#external-events div.external-event'))
+
+            const date = new Date()
+            const d = date.getDate(),
+                m = date.getMonth(),
+                y = date.getFullYear()
+
+            const Calendar = FullCalendar.Calendar;
+            const Draggable = FullCalendar.Draggable;
+
+            const containerEl = document.getElementById('external-events');
+            const checkbox = document.getElementById('drop-remove');
+            const calendarEl = document.getElementById('calendar');
+
+            const calendar = new Calendar(calendarEl, {
+                locale: 'pt-br',
+                headerToolbar: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'dayGridMonth,timeGridWeek,timeGridDay'
+                },
+                themeSystem: 'bootstrap',
+
+                events: "{{ route('academico.disciplina.prova.getJson') }}",
+                eventClick: function(info) {
+                    const modal = $('#modalUpdateProva');
+                    modal.find('input[name="id"]').val(info.event.id);
+                    modal.find('input[name="nome"]').val(info.event.title);
+                    modal.find('#observacao_update').summernote('code', info.event.extendedProps.description);
+                    modal.find('#data_inicio_update').val(info.event.extendedProps.data_inicio);
+                    modal.find('#data_termino_update').val(info.event.extendedProps.data_termino);
+                    modal.find('input[name="valor"]').val(info.event.extendedProps.valor);
+                    modal.find('input[name="resultado"]').val(info.event.extendedProps.resultado);
+                    modal.find('select[id="disciplina_id_update"]').val(info.event.extendedProps.disciplina_id);
+                    modal.find('select[id="disciplina_id_update"]').trigger('change');
+                    modal.find('input[name="resultado"]').val(info.event.extendedProps.resultado);
+                    modal.find('select[id="status"]').val(info.event.extendedProps.status);
+                    modal.find('select[id="status"]').trigger('change');
+                    modal.modal('show');
+                },
+
+                editable: true,
+                droppable: false,
+            });
+            calendar.render();
+        });
+    </script>
+@endsection

@@ -152,10 +152,11 @@
                 method: "POST",
                 data: data,
                 success: function(response) {
+                    console.log(response);
                     if (response['success']) {
-                        toastr.success(response['success', '', {
+                        toastr.success(response['success'], '', {
                             timeOut: 2000,
-                        }]);
+                        });
                         $('#mensagem').val('');
                         criarMensagem(response['mensagem']);
                         const chat = document.getElementById('mensagens');

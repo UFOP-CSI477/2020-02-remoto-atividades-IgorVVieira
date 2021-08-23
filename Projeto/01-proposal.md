@@ -1,5 +1,5 @@
 # **CSI606-2020-02 - Remoto - Proposta de Trabalho Final**
-## *Aluna(o): Princesa Leia (Luke Skywalker)*
+## *Aluno: Igor Vitor Vieira*
 
 --------------
 
@@ -7,7 +7,7 @@
 
 ### Resumo
 
-  (Apresentar um breve resumo sobre o seu trabalho, indicando o contexto e as principais funcionalidades.)
+O trabalho prático consiste em um sistema de gerenciamento acadêmico, onde alunos podem se vincular a disciplinas e registrar suas provas e resultados.
 
 <!-- Apresentar o tema. -->
 ### 1. Tema
@@ -17,7 +17,13 @@
 <!-- Descrever e limitar o escopo da aplicação. -->
 ### 2. Escopo
 
-  Este projeto terá as seguintes funcionalidades...
+  Este projeto terá as seguintes funcionalidades
+  - Cadastro e login usuários;
+  - Possibilidade de se vincular a disciplinas;
+  - Criação e agendamento de provas/atividades avaliativas;
+  - Histórico de notas e disciplinas cursadas;
+  - Troca de mensagens entre usuários que estão cursando a mesma disciplina;
+
 
 <!-- Apresentar restrições de funcionalidades e de escopo. -->
 ### 3. Restrições
@@ -30,5 +36,4 @@
   Protótipos para as páginas (descrever quais páginas) foram elaborados, e podem ser encontrados em...
 
 ### 5. Referências
-
-  Referências podem ser incluídas, caso necessário. Utilize o padrão ABNT.
+   Eloquent Getting Started - Laravel the PHP web framwork for wb artisans, 2021. Disponível em: https://laravel.com/docs/8.x. Acesso em: 21 ago. 2021.

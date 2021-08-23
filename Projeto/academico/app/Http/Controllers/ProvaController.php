@@ -51,7 +51,7 @@ class ProvaController extends Controller
         try {
             $notaTotal = Prova::selectRaw('SUM(resultado) as total')->where('disciplina_id', $request->disciplina_id)->firstOrFail();
 
-            if ($notaTotal + $request->valor > 100) {
+            if ($notaTotal->total + $request->valor > 100) {
                 $request->session()->flash('warning', 'A nota total não pode ser maior que 100.');
                 return redirect()->route('academico.dashboard');
             }
@@ -79,11 +79,6 @@ class ProvaController extends Controller
     {
         try {
             $notaTotal = Prova::selectRaw('SUM(resultado) as total')->where('disciplina_id', $request->disciplina_id)->firstOrFail();
-
-            if ($notaTotal + $request->valor > 100 || $notaTotal + $request->resultado || $request->valor < $request->resultado) {
-                $request->session()->flash('warning', 'A nota total não pode ser maior que 100.');
-                return redirect()->route('academico.dashboard');
-            }
 
             $prova = Prova::FindOrFail($request->id);
             $prova->update([

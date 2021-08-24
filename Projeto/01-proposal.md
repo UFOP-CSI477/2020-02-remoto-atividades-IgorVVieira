@@ -7,18 +7,18 @@
 
 ### Resumo
 
-O trabalho prático consiste em um sistema de gerenciamento acadêmico, onde alunos podem se vincular a disciplinas e registrar suas provas e resultados.
+O trabalho prático consiste em um sistema de gerenciamento acadêmico, onde alunos podem se vincular a disciplinas, registrar suas provas e resultados. Além de poder trocar mensagens com alunos que cursam a mesma disciplina.
 
 <!-- Apresentar o tema. -->
 ### 1. Tema
 
-  O trabalho final tem como tema o desenvolvimento de ...
+ Sistema para gerênciamente acadêmico.
 
 <!-- Descrever e limitar o escopo da aplicação. -->
 ### 2. Escopo
 
   Este projeto terá as seguintes funcionalidades
-  - Cadastro e login usuários;
+  - Cadastro e login de usuários;
   - Possibilidade de se vincular a disciplinas;
   - Criação e agendamento de provas/atividades avaliativas;
   - Histórico de notas e disciplinas cursadas;

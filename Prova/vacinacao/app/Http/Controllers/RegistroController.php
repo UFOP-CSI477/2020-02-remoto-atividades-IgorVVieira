@@ -3,17 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Registro;
 
 class RegistroController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        //
+        $registro = Registro::with('pessoa', 'unidade', 'vacina')->get();
     }
 
     /**
@@ -26,15 +22,22 @@ class RegistroController extends Controller
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+        try {
+            Registro::create([
+                'pessoa_id' => $request->pessoa_id,
+                'unidade_id' => $request->unidade_id,
+                'vacina_id' => $request->vacina_id,
+                'dose' => $request->dose,
+                'data' => $request->data,
+            ]);
+            $request->session()->flash('success', 'Registro cadastrado com sucesso.');
+        } catch (\Throwable $th) {
+            report($th);
+            $request->session()->flash('errir', 'Erro ao cadastrar registro, tente novamente.');
+            redirect()->back();
+        }
     }
 
     /**
@@ -59,26 +62,33 @@ class RegistroController extends Controller
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
-        //
+        try {
+            Registro::findOrFail($id)->update([
+                'pessoa_id' => $request->pessoa_id,
+                'unidade_id' => $request->unidade_id,
+                'vacina_id' => $request->vacina_id,
+                'dose' => $request->dose,
+                'data' => $request->data,
+            ]);
+            $request->session()->flash('success', 'Registro atualizado com sucesso.');
+        } catch (\Throwable $th) {
+            report($th);
+            $request->session()->flash('error', 'Erro ao atualizar registro, tente novamente.');
+            return redirect()->back();
+        }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        //
+        try {
+            Registro::findOrFail($id)->delete();
+            $request->session()->flash('success', 'Registro deletado com sucesso.');
+        } catch (\Throwable $th) {
+            report($th);
+            $request->session()->flash('error', 'Erro ao deletar registro, tente novamente.');
+            return redirect()->back();
+        }
     }
 }

@@ -2,18 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Vacina;
 use Illuminate\Http\Request;
 
 class VacinaController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        //
+        $vacinas = Vacina::all();
     }
 
     /**
@@ -26,15 +22,20 @@ class VacinaController extends Controller
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+        try {
+            Vacina::create([
+                'nome' => $request->nome,
+                'fabricante' => $request->fabricante,
+                'doses' => $request->doses,
+            ]);
+            $request->session()->flash('success', 'Vacina cadastrada com sucesso.');
+        } catch (\Throwable $th) {
+            report($th);
+            $request->session()->flash('error', 'Erro ao cadastrar vacina, tente novamente.');
+            return redirect()->back();
+        }
     }
 
     /**
@@ -59,26 +60,31 @@ class VacinaController extends Controller
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
-        //
+        try {
+            Vacina::findOrFail($id)->update([
+                'nome' => $request->nome,
+                'fabricante' => $request->fabricante,
+                'doses' => $request->doses,
+            ]);
+            $request->session()->flash('success', 'Vacina atualizada com sucesso.');
+        } catch (\Throwable $th) {
+            report($th);
+            $request->session()->flash('error', 'Vacina atualizada com sucesso.');
+            return redirect()->back();
+        }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        //
+        try {
+            Vacina::findOrFail($id)->delete();
+            $request->session()->flash('success', 'Vacina deletada com sucesso.');
+        } catch (\Throwable $th) {
+            report($th);
+            $request->session()->flash('error', 'Erro ao deletar vacina, tente novamente.');
+            return redirect()->back();
+        }
     }
 }

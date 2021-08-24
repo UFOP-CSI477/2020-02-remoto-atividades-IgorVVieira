@@ -2,18 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Unidade;
 use Illuminate\Http\Request;
 
 class UnidadeController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        //
+        $unidades = Unidade::all();
     }
 
     /**
@@ -26,15 +22,20 @@ class UnidadeController extends Controller
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+        try {
+            Unidade::create([
+                'nome',
+                'bairro',
+                'cidade',
+            ]);
+            $request->session()->flash('sucess', 'Unidade cadastrada com sucesso.');
+        } catch (\Throwable $th) {
+            report($th);
+            $request->session()->flash('error', 'Erro ao cadastrar unidade');
+            return redirect()->back();
+        }
     }
 
     /**
@@ -59,26 +60,31 @@ class UnidadeController extends Controller
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
-        //
+        try {
+            Unidade::findOrFail($id)->update([
+                'nome',
+                'bairro',
+                'cidade',
+            ]);
+            $request->session()->flash('sucess', 'Unidade atualziada com sucesso.');
+        } catch (\Throwable $th) {
+            report($th);
+            $request->session()->flash('error', 'Erro ao atualizar unidade');
+            return redirect()->back();
+        }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        //
+        try {
+            Unidade::findOrFail($id)->delete();
+            $request->session()->flash('success', 'Unidade deletada com sucesso.');
+        } catch (\Throwable $th) {
+            report($th);
+            $request->session()->flash('error', 'Erro ao deletar unidade.');
+            return redirect()->back();
+        }
     }
 }

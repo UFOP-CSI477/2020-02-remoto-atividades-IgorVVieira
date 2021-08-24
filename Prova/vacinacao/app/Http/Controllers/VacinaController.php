@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Vacina;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Vacina;
 
 class VacinaController extends Controller
 {
@@ -25,12 +26,17 @@ class VacinaController extends Controller
     public function store(Request $request)
     {
         try {
-            Vacina::create([
-                'nome' => $request->nome,
-                'fabricante' => $request->fabricante,
-                'doses' => $request->doses,
-            ]);
-            $request->session()->flash('success', 'Vacina cadastrada com sucesso.');
+            if (Auth::user()) {
+                Vacina::create([
+                    'nome' => $request->nome,
+                    'fabricante' => $request->fabricante,
+                    'doses' => $request->doses,
+                ]);
+                $request->session()->flash('success', 'Vacina cadastrada com sucesso.');
+            } else {
+                $request->session()->flash('warning', 'Você não possui permissão para executar esta ação.');
+                return redirect()->back();
+            }
         } catch (\Throwable $th) {
             report($th);
             $request->session()->flash('error', 'Erro ao cadastrar vacina, tente novamente.');
@@ -63,11 +69,16 @@ class VacinaController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            Vacina::findOrFail($id)->update([
-                'nome' => $request->nome,
-                'fabricante' => $request->fabricante,
-                'doses' => $request->doses,
-            ]);
+            if (Auth::user()) {
+                Vacina::findOrFail($id)->update([
+                    'nome' => $request->nome,
+                    'fabricante' => $request->fabricante,
+                    'doses' => $request->doses,
+                ]);
+            } else {
+                $request->session()->flash('warning', 'Você não possui permissão para executar esta ação.');
+                return redirect()->back();
+            }
             $request->session()->flash('success', 'Vacina atualizada com sucesso.');
         } catch (\Throwable $th) {
             report($th);
@@ -78,9 +89,15 @@ class VacinaController extends Controller
 
     public function destroy(Request $request, $id)
     {
+
         try {
-            Vacina::findOrFail($id)->delete();
-            $request->session()->flash('success', 'Vacina deletada com sucesso.');
+            if (Auth::user()) {
+                Vacina::findOrFail($id)->delete();
+                $request->session()->flash('success', 'Vacina deletada com sucesso.');
+            } else {
+                $request->session()->flash('warning', 'Você não possui permissão para executar esta ação.');
+                return redirect()->back();
+            }
         } catch (\Throwable $th) {
             report($th);
             $request->session()->flash('error', 'Erro ao deletar vacina, tente novamente.');

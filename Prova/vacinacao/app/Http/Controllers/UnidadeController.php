@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Unidade;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Unidade;
 
 class UnidadeController extends Controller
 {
@@ -25,12 +26,17 @@ class UnidadeController extends Controller
     public function store(Request $request)
     {
         try {
-            Unidade::create([
-                'nome',
-                'bairro',
-                'cidade',
-            ]);
-            $request->session()->flash('sucess', 'Unidade cadastrada com sucesso.');
+            if (Auth::user()) {
+                Unidade::create([
+                    'nome',
+                    'bairro',
+                    'cidade',
+                ]);
+                $request->session()->flash('sucess', 'Unidade cadastrada com sucesso.');
+            } else {
+                $request->session()->flash('warning', 'Você não possui permissão para executar esta ação.');
+                return redirect()->back();
+            }
         } catch (\Throwable $th) {
             report($th);
             $request->session()->flash('error', 'Erro ao cadastrar unidade');
@@ -63,12 +69,17 @@ class UnidadeController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            Unidade::findOrFail($id)->update([
-                'nome',
-                'bairro',
-                'cidade',
-            ]);
-            $request->session()->flash('sucess', 'Unidade atualziada com sucesso.');
+            if (Auth::user()) {
+                Unidade::findOrFail($id)->update([
+                    'nome',
+                    'bairro',
+                    'cidade',
+                ]);
+                $request->session()->flash('sucess', 'Unidade atualziada com sucesso.');
+            } else {
+                $request->session()->flash('warning', 'Você não possui permissão para executar esta ação.');
+                return redirect()->back();
+            }
         } catch (\Throwable $th) {
             report($th);
             $request->session()->flash('error', 'Erro ao atualizar unidade');
@@ -79,8 +90,13 @@ class UnidadeController extends Controller
     public function destroy(Request $request, $id)
     {
         try {
-            Unidade::findOrFail($id)->delete();
-            $request->session()->flash('success', 'Unidade deletada com sucesso.');
+            if (Auth::user()) {
+                Unidade::findOrFail($id)->delete();
+                $request->session()->flash('success', 'Unidade deletada com sucesso.');
+            } else {
+                $request->session()->flash('warning', 'Você não possui permissão para executar esta ação.');
+                return redirect()->back();
+            }
         } catch (\Throwable $th) {
             report($th);
             $request->session()->flash('error', 'Erro ao deletar unidade.');

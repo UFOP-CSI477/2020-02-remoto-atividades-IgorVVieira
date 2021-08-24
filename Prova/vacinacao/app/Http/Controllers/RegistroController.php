@@ -4,12 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Registro;
+use Illuminate\Support\Facades\Auth;
 
 class RegistroController extends Controller
 {
     public function index()
     {
-        $registro = Registro::with('pessoa', 'unidade', 'vacina')->get();
+        $registros = Registro::with('pessoa', 'unidade', 'vacina')->get();
+        return view('index', ['registros' => $registros]);
     }
 
     /**
@@ -25,14 +27,19 @@ class RegistroController extends Controller
     public function store(Request $request)
     {
         try {
-            Registro::create([
-                'pessoa_id' => $request->pessoa_id,
-                'unidade_id' => $request->unidade_id,
-                'vacina_id' => $request->vacina_id,
-                'dose' => $request->dose,
-                'data' => $request->data,
-            ]);
-            $request->session()->flash('success', 'Registro cadastrado com sucesso.');
+            if (Auth::user()) {
+                Registro::create([
+                    'pessoa_id' => $request->pessoa_id,
+                    'unidade_id' => $request->unidade_id,
+                    'vacina_id' => $request->vacina_id,
+                    'dose' => $request->dose,
+                    'data' => $request->data,
+                ]);
+                $request->session()->flash('success', 'Registro cadastrado com sucesso.');
+            } else {
+                $request->session()->flash('warning', 'Você não possui permissão para executar esta ação.');
+                return redirect()->back();
+            }
         } catch (\Throwable $th) {
             report($th);
             $request->session()->flash('errir', 'Erro ao cadastrar registro, tente novamente.');
@@ -65,14 +72,19 @@ class RegistroController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            Registro::findOrFail($id)->update([
-                'pessoa_id' => $request->pessoa_id,
-                'unidade_id' => $request->unidade_id,
-                'vacina_id' => $request->vacina_id,
-                'dose' => $request->dose,
-                'data' => $request->data,
-            ]);
-            $request->session()->flash('success', 'Registro atualizado com sucesso.');
+            if (Auth::user()) {
+                Registro::findOrFail($id)->update([
+                    'pessoa_id' => $request->pessoa_id,
+                    'unidade_id' => $request->unidade_id,
+                    'vacina_id' => $request->vacina_id,
+                    'dose' => $request->dose,
+                    'data' => $request->data,
+                ]);
+                $request->session()->flash('success', 'Registro atualizado com sucesso.');
+            } else {
+                $request->session()->flash('warning', 'Você não possui permissão para executar esta ação.');
+                return redirect()->back();
+            }
         } catch (\Throwable $th) {
             report($th);
             $request->session()->flash('error', 'Erro ao atualizar registro, tente novamente.');
@@ -83,8 +95,13 @@ class RegistroController extends Controller
     public function destroy(Request $request, $id)
     {
         try {
-            Registro::findOrFail($id)->delete();
-            $request->session()->flash('success', 'Registro deletado com sucesso.');
+            if (Auth::user()) {
+                Registro::findOrFail($id)->delete();
+                $request->session()->flash('success', 'Registro deletado com sucesso.');
+            } else {
+                $request->session()->flash('warning', 'Você não possui permissão para executar esta ação.');
+                return redirect()->back();
+            }
         } catch (\Throwable $th) {
             report($th);
             $request->session()->flash('error', 'Erro ao deletar registro, tente novamente.');

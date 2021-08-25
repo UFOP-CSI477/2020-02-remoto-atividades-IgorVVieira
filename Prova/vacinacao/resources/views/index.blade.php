@@ -9,12 +9,11 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0">Dashboard</h1>
+                            <h1 class="m-0">Relatórios gerais</h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item active">Dashboard v1</li>
+                                <li class="breadcrumb-item active"><a href="{{ route('registro.index') }}">Área geral</a></li>
                             </ol>
                         </div>
                     </div>
@@ -38,16 +37,22 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td>Trident</td>
-                                            <td>Internet
-                                                Explorer 4.0
-                                            </td>
+                                            <td>Dose única</td>
+                                            <td>{{ $doseUnica }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Primeira Dose</td>
+                                            <td>{{ $primeiraDose }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Segunda Dose</td>
+                                            <td>{{ $segundaDose }}</td>
                                         </tr>
                                     </tbody>
                                     <tfoot>
                                         <tr>
                                             <th>TOTAL GERAL</th>
-                                            <th class="text-center">500</th>
+                                            <th class="text-center">{{ $quantidadeTotalRegistros }}</th>
                                         </tr>
                                     </tfoot>
                                 </table>
@@ -67,19 +72,19 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>Trident</td>
-                                            <td>Internet
-                                                Explorer 4.0
-                                            </td>
-                                            <td>X</td>
-                                        </tr>
+                                        @foreach ($vacinas as $vacina)
+                                            <tr>
+                                                <td>{{ $vacina->nome }}</td>
+                                                <td>{{ $vacina->registros->count() }}</td>
+                                                <td>{{ ($vacina->registros->count() * 100) / $quantidadeTotalRegistros }}%</td>
+                                            </tr>
+                                        @endforeach
                                     </tbody>
                                     <tfoot>
                                         <tr>
                                             <th>TOTAL GERAL</th>
-                                            <th class="text-center">500</th>
-                                            <th class="text-center">500</th>
+                                            <th class="text-center">{{ $quantidadeTotalRegistros }}</th>
+                                            <th class="text-center">100%</th>
                                         </tr>
                                     </tfoot>
                                 </table>

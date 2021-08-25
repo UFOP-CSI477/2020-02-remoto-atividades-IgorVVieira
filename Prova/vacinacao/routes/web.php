@@ -9,12 +9,10 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::middleware('auth')->name('vacinacao.')->prefix('vacinacao')->group(function () {
-    Route::resource('pessoa', PessoaController::class);
+Route::resource('pessoa', PessoaController::class)->middleware('auth');
 
-    Route::resource('unidade', UnidadeController::class);
+Route::resource('unidade', UnidadeController::class)->middleware('auth');
 
-    Route::resource('vacina', VacinaController::class);
+Route::resource('vacina', VacinaController::class)->middleware('auth');
 
-    Route::resource('registro', RegistroController::class);
-});
+Route::resource('registro', RegistroController::class);

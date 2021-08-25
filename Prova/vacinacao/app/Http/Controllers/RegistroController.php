@@ -3,25 +3,41 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Registro;
-use Illuminate\Support\Facades\Auth;
+use App\Models\{Registro, Pessoa, Unidade, Vacina};
+use Illuminate\Support\Facades\{Auth, Session};
 
 class RegistroController extends Controller
 {
     public function index()
     {
-        $registros = Registro::with('pessoa', 'unidade', 'vacina')->get();
-        return view('index', ['registros' => $registros]);
+        $doseUnica = Registro::where('dose', 0)->count();
+        $primeiraDose = Registro::where('dose', 1)->count();
+        $segundaDose = Registro::where('dose', 2)->count();
+
+        $registros = Registro::with('vacina')->get();
+        $vacinas = Vacina::with('registros')->get();
+        $quantidadeTotalRegistros = Registro::count();
+
+        return view('index', [
+            'doseUnica' => $doseUnica,
+            'primeiraDose' => $primeiraDose,
+            'segundaDose' => $segundaDose,
+            'registros' => $registros,
+            'vacinas' => $vacinas, 'quantidadeTotalRegistros' => $quantidadeTotalRegistros
+        ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        //
+        if (Auth::user()) {
+            $pessoas = Pessoa::all();
+            $unidades = Unidade::all();
+            $vacinas = Vacina::all();
+            return view('registro.create', ['pessoas' => $pessoas, 'unidades' => $unidades, 'vacinas' => $vacinas]);
+        } else {
+            Session::flash('warning', 'Você não tem permissão para realizar esta ação');
+            return redirect()->back();
+        }
     }
 
     public function store(Request $request)
@@ -36,6 +52,7 @@ class RegistroController extends Controller
                     'data' => $request->data,
                 ]);
                 $request->session()->flash('success', 'Registro cadastrado com sucesso.');
+                return redirect()->route('registro.index');
             } else {
                 $request->session()->flash('warning', 'Você não possui permissão para executar esta ação.');
                 return redirect()->back();

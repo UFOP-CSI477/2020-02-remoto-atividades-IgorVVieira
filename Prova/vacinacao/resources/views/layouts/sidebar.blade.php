@@ -34,12 +34,12 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="pages/charts/chartjs.html" class="nav-link">
+                                <a href="#" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Vacinas</p>
                                     <i class="right fas fa-angle-left"></i>
                                 </a>
-                                <ul class="nav nav-treeview">
+                                <ul class="nav nav-treeview ml-3">
                                     <li class="nav-item">
                                         <a href="{{ route('vacina.index') }}" class="nav-link">
                                             <i class="far fa-circle nav-icon"></i>
@@ -55,12 +55,12 @@
                                 </ul>
                             </li>
                             <li class="nav-item">
-                                <a href="pages/charts/flot.html" class="nav-link">
+                                <a href="#" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Pessoas</p>
                                     <i class="right fas fa-angle-left"></i>
                                 </a>
-                                <ul class="nav nav-treeview">
+                                <ul class="nav nav-treeview ml-3">
                                     <li class="nav-item">
                                         <a href="{{ route('pessoa.index') }}" class="nav-link">
                                             <i class="far fa-circle nav-icon"></i>
@@ -70,12 +70,12 @@
                                 </ul>
                             </li>
                             <li class="nav-item">
-                                <a href="pages/charts/inline.html" class="nav-link">
+                                <a href="#" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Unidades</p>
                                     <i class="right fas fa-angle-left"></i>
                                 </a>
-                                <ul class="nav nav-treeview">
+                                <ul class="nav nav-treeview ml-3">
                                     <li class="nav-item">
                                         <a href="{{ route('unidade.index') }}" class="nav-link">
                                             <i class="far fa-circle nav-icon"></i>
@@ -85,12 +85,12 @@
                                 </ul>
                             </li>
                             <li class="nav-item">
-                                <a href="pages/charts/uplot.html" class="nav-link">
+                                <a href="#" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Registros</p>
                                     <i class="right fas fa-angle-left"></i>
                                 </a>
-                                <ul class="nav nav-treeview">
+                                <ul class="nav nav-treeview ml-3">
                                     <li class="nav-item">
                                         <a href="{{ route('registro.index') }}" class="nav-link">
                                             <i class="far fa-circle nav-icon"></i>

@@ -10,17 +10,13 @@ class VacinaController extends Controller
 {
     public function index()
     {
-        $vacinas = Vacina::all();
+        $vacinas = Vacina::orderBy('nome')->get();
+        return view('vacina.index', ['vacinas' => $vacinas]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        //
+        return view('vacina.create');
     }
 
     public function store(Request $request)
@@ -33,6 +29,7 @@ class VacinaController extends Controller
                     'doses' => $request->doses,
                 ]);
                 $request->session()->flash('success', 'Vacina cadastrada com sucesso.');
+                return redirect()->route('vacina.index');
             } else {
                 $request->session()->flash('warning', 'Você não possui permissão para executar esta ação.');
                 return redirect()->back();

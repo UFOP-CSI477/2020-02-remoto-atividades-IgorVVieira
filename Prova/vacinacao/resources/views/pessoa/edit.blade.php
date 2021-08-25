@@ -9,7 +9,7 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0">Cadatro de registro</h1>
+                            <h1 class="m-0">Editar pessoa #{{ $pessoa->id }}</h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
@@ -28,49 +28,30 @@
                         <div class="col-md-12">
                             <div class="card card-primary">
                                 <div class="card-header">
-                                    <h3 class="card-title">Novo registro</small></h3>
                                 </div>
-                                <form action="{{ route('registro.store') }}" method="POST" id="formStoreRegistro">
+                                <form action="{{ route('pessoa.update', ['pessoa' => $pessoa]) }}" method="POST" id="formUpdatePessoa">
                                     @csrf
+                                    @method('PUT')
                                     <div class="card-body">
-                                        <div class="form-group col-8">
-                                            <label for="pessoa_id">Pessoa</label>
-                                            <select id="pessoa_id" name="pessoa_id" class="form-control select2" required>
-                                                <option value="" selected disabled>Selecione</option>
-                                                @foreach ($pessoas as $pessoa)
-                                                    <option value="{{ $pessoa->id }}">{{ $pessoa->nome }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                        <div class="form-group col-8">
-                                            <label for="unidade_id">Unidade</label>
-                                            <select id="unidade_id" name="unidade_id" class="form-control select2" required>
-                                                <option value="" selected disabled>Selecione</option>
-                                                @foreach ($unidades as $unidade)
-                                                    <option value="{{ $unidade->id }}">{{ $unidade->nome }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                        <div class="form-group col-8">
-                                            <label for="vacina_id">Vacina</label>
-                                            <select id="vacina_id" name="vacina_id" class="form-control select2" required>
-                                                <option value="" selected disabled>Selecione</option>
-                                                @foreach ($vacinas as $vacina)
-                                                    <option value="{{ $vacina->id }}">{{ $vacina->nome }}</option>
-                                                @endforeach
-                                            </select>
+                                        <div class="form-group col-lg-4">
+                                            <label for="nome">Nome</label>
+                                            <input type="text" name="nome" value="{{ $pessoa->nome }}" class="form-control" id="nome" required>
                                         </div>
                                         <div class="form-group col-lg-4">
-                                            <label for="dose">Dose</label>
-                                            <input type="number" name="dose" class="form-control" max="2" min="0" id="dose" placeholder="Quantidade de doses recomendadas para vacina." required>
+                                            <label for="bairro">Bairro</label>
+                                            <input type="text" name="bairro" value="{{ $pessoa->bairro }}" class="form-control" id="bairro" required>
                                         </div>
                                         <div class="form-group col-lg-4">
-                                            <label for="data">Data</label>
-                                            <input type="date" name="data" class="form-control" max="4" min="1" id="data" required>
+                                            <label for="cidade">Cidade</label>
+                                            <input type="text" name="cidade" value="{{ $pessoa->cidade }}" class="form-control" id="cidade" required>
+                                        </div>
+                                        <div class="form-group col-lg-4">
+                                            <label for="data_nascimento">Data de nascimento</label>
+                                            <input type="date" name="data_nascimento" value="{{ $pessoa->data_nascimento }}" class="form-control" max="4" min="1" id="data_nascimento" required>
                                         </div>
                                     </div>
                                     <div class="card-footer">
-                                        <button id="btnStoreRegistro" type="submit" class="btn btn-primary">Cadastrar</button>
+                                        <button id="btnUpdatePessoa" type="submit" class="btn btn-primary">Editar</button>
                                     </div>
                                 </form>
                             </div>
@@ -87,7 +68,7 @@
     <script>
         $(function() {
             $('.select2').select2();
-            $('#formStoreRegistro').validate({
+            $('#formUpdatePessoa').validate({
                 rules: {
                     pessoa_id: {
                         required: true,
@@ -135,13 +116,13 @@
                 }
             });
 
-            $('#btnStoreRegistro').click((event) => {
+            $('#btnUpdatePessoa').click((event) => {
                 event.preventDefault();
-                $('#btnStoreRegistro').prop('disabled', true);
-                if ($('#formStoreRegistro').valid()) {
-                    $('#formStoreRegistro').submit();
+                $('#btnUpdatePessoa').prop('disabled', true);
+                if ($('#formUpdatePessoa').valid()) {
+                    $('#formUpdatePessoa').submit();
                 } else {
-                    $('#btnStoreRegistro').prop('disabled', false);
+                    $('#btnUpdatePessoa').prop('disabled', false);
                 }
             })
         });

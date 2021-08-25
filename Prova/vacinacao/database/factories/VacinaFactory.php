@@ -11,15 +11,9 @@ class VacinaFactory extends Factory
 
     public function definition()
     {
-        $arrayNome = ['CoronaVac', 'AstraZeneca', 'SpiN-Tec', 'Janssen', 'Pfizer'];
-        $nome = array_rand($arrayNome);
-
-        $arrayFabricante = ['Sinovac', 'Pfizer', 'Oxford', 'Janssen Farmacêutica'];
-        $fabricante = array_rand($arrayFabricante);
-        
         return [
-            'nome' => $arrayNome[$nome],
-            'fabricante' => $arrayFabricante[$fabricante],
+            'nome' => $this->faker->randomElement(['CoronaVac', 'AstraZeneca', 'SpiN-Tec', 'Janssen', 'Pfizer']),
+            'fabricante' => $this->faker->randomElement(['Sinovac', 'Pfizer', 'Oxford', 'Janssen Farmacêutica']),
             'doses' => rand(1000, 5000),
         ];
     }

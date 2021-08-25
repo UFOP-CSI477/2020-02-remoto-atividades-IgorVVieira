@@ -10,7 +10,8 @@ class UnidadeController extends Controller
 {
     public function index()
     {
-        $unidades = Unidade::all();
+        $unidades = Unidade::with('registros')->get();
+        return view('unidade.index', ['unidades' => $unidades]);
     }
 
     /**

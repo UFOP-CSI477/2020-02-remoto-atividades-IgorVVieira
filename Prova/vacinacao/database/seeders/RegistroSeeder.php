@@ -9,6 +9,6 @@ class RegistroSeeder extends Seeder
 {
     public function run()
     {
-        Registro::factory()->create(20)->create();
+        Registro::factory()->create(10)->create();
     }
 }

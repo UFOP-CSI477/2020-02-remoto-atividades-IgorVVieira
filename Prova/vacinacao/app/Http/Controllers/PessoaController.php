@@ -3,14 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Pessoa;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Pessoa;
 
 class PessoaController extends Controller
 {
     public function index()
     {
-        $pessoas = Pessoa::all();
+        $pessoas = Pessoa::orderBy('nome')->get();
+        return view('pessoa.index', ['pessoas' => $pessoas]);
     }
 
     /**
@@ -50,22 +51,27 @@ class PessoaController extends Controller
         //
     }
 
-    public function edit($id)
+    public function edit(Pessoa $pessoa)
     {
-        //
+        if (Auth::user()) {
+            return view('pessoa.edit', ['pessoa' => $pessoa]);
+        } else {
+            redirect()->back();
+        }
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, Pessoa $pessoa)
     {
         try {
             if (Auth::user()) {
-                Pessoa::findOrFail($id)->update([
+                $pessoa->update([
                     'nome' => $request->nome,
                     'bairro' => $request->bairro,
                     'cidade' => $request->cidade,
                     'data_nascimento' => $request->data_nascimento,
                 ]);
                 $request->session()->flash('success', 'Pessoa atualizado com sucesso.');
+                return redirect()->route('pessoa.index');
             } else {
                 $request->session()->flash('warning', 'Você não possui permissão para executar esta ação.');
                 return redirect()->back();

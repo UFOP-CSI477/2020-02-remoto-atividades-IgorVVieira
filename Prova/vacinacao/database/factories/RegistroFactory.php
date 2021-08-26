@@ -12,14 +12,10 @@ class RegistroFactory extends Factory
 
     public function definition()
     {
-        $pessoas = Pessoa::all()->pluck('id')->all();
-        $vacinas = Vacina::all()->pluck('id')->all();
-        $unidades = Unidade::all()->pluck('id')->all();
-
         return [
-            'pessoa_id' => $this->faker->randomElement($pessoas),
-            'unidade_id' => $this->faker->randomElement($unidades),
-            'vacina_id' => $this->faker->randomElement($vacinas),
+            'pessoa_id' => Pessoa::all()->random()->id,
+            'unidade_id' => Unidade::all()->random()->id,
+            'vacina_id' => Vacina::all()->random()->id,
             'dose' => $this->faker->randomElement([0, 1, 2, 3, 4]),
             'data' => $this->faker->dateTimeBetween($startDate = '-1 year', $endDate = now(), $timezone = null),
         ];

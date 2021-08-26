@@ -67,16 +67,17 @@ class UnidadeController extends Controller
         //
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, Unidade $unidade)
     {
         try {
             if (Auth::user()) {
-                Unidade::findOrFail($id)->update([
+                $unidade->update([
                     'nome',
                     'bairro',
                     'cidade',
                 ]);
                 $request->session()->flash('sucess', 'Unidade atualziada com sucesso.');
+                return redirect()->route('unidade.index');
             } else {
                 $request->session()->flash('warning', 'Você não possui permissão para executar esta ação.');
                 return redirect()->back();
@@ -88,12 +89,17 @@ class UnidadeController extends Controller
         }
     }
 
-    public function destroy(Request $request, $id)
+    public function destroy(Request $request, Unidade $unidade)
     {
         try {
             if (Auth::user()) {
-                Unidade::findOrFail($id)->delete();
+                if (!$unidade->registros->isEmpty()) {
+                    $request->session()->flash('warning', 'Está unidade não pode ser deletada');
+                    return redirect()->back();
+                }
+                $unidade->delete();
                 $request->session()->flash('success', 'Unidade deletada com sucesso.');
+                return redirect()->back();
             } else {
                 $request->session()->flash('warning', 'Você não possui permissão para executar esta ação.');
                 return redirect()->back();

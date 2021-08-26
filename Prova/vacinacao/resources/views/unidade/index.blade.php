@@ -44,13 +44,17 @@
                                         <td>{{ $unidade->cidade }}</td>
                                         <td class="align-center text-center">
                                             @if (!$unidade->registros->isEmpty())
-                                            <button title="Editar" disabled class="btn btn-danger btn-circle">
-                                                <i class="fas fa-trash"></i>
-                                            </button>
-                                            @else
-                                                <a title="Editar" href="{{ route('unidade.destroy', ['unidade' => $unidade]) }}" class="btn btn-danger btn-circle">
+                                                <button title="Editar" disabled class="btn btn-danger btn-circle">
                                                     <i class="fas fa-trash"></i>
-                                                </a>
+                                                </button>
+                                            @else
+                                                <form action="{{ route('unidade.destroy', ['unidade' => $unidade]) }}" method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button title="Excluir" type="submit" class="btn btn-danger btn-circle">
+                                                        <i class="fas fa-trash"></i>
+                                                    </button>
+                                                </form>
                                             @endif
                                         </td>
                                     </tr>

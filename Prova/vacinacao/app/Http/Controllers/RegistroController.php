@@ -27,6 +27,12 @@ class RegistroController extends Controller
         ]);
     }
 
+    public function relatorios()
+    {
+        $registros = Registro::with('pessoa', 'unidade', 'vacina')->get();
+        return view('registro.index', ['registros' => $registros]);
+    }
+
     public function create()
     {
         if (Auth::user()) {
@@ -75,22 +81,26 @@ class RegistroController extends Controller
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    public function edit(Registro $registro)
     {
-        //
+        if (Auth::user()) {
+            $pessoas = Pessoa::all();
+            $unidades = Unidade::all();
+            $vacinas = Vacina::all();
+
+            return view('registro.edit', [
+                'pessoas' => $pessoas, 'unidades' => $unidades, 'vacinas' => $vacinas, 'registro' => $registro
+            ]);
+        } else {
+            redirect()->back();
+        }
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, Registro $registro)
     {
         try {
             if (Auth::user()) {
-                Registro::findOrFail($id)->update([
+                $registro->update([
                     'pessoa_id' => $request->pessoa_id,
                     'unidade_id' => $request->unidade_id,
                     'vacina_id' => $request->vacina_id,
@@ -98,6 +108,7 @@ class RegistroController extends Controller
                     'data' => $request->data,
                 ]);
                 $request->session()->flash('success', 'Registro atualizado com sucesso.');
+                return redirect()->route('registro.relatorios');
             } else {
                 $request->session()->flash('warning', 'Você não possui permissão para executar esta ação.');
                 return redirect()->back();
@@ -109,12 +120,13 @@ class RegistroController extends Controller
         }
     }
 
-    public function destroy(Request $request, $id)
+    public function destroy(Request $request, Registro $registro)
     {
         try {
             if (Auth::user()) {
-                Registro::findOrFail($id)->delete();
+                $registro->delete();
                 $request->session()->flash('success', 'Registro deletado com sucesso.');
+                return redirect()->route('registro.relatorios');
             } else {
                 $request->session()->flash('warning', 'Você não possui permissão para executar esta ação.');
                 return redirect()->back();

@@ -6,12 +6,14 @@
          <li class="nav-item d-none d-sm-inline-block">
              <a href="index3.html" class="nav-link">Home</a>
          </li>
-         <li class="nav-item d-none d-sm-inline-block">
-             <form action="{{ route('logout') }}" method="post">
-                @csrf
-                <button type="submit" class="btn btn-danger">Logout</button>
-            </form>
-         </li>
+         @if (Auth::user())
+             <li class="nav-item d-none d-sm-inline-block">
+                 <form action="{{ route('logout') }}" method="post">
+                     @csrf
+                     <button type="submit" class="btn btn-danger">Logout</button>
+                 </form>
+             </li>
+         @endif
      </ul>
 
      <ul class="navbar-nav ml-auto">

@@ -23,16 +23,24 @@
                     </a>
                 </li>
 
-                @if (Auth::user())
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="nav-icon fas fa-user-lock"></i>
-                            <p>
-                                Área administrativa
-                                <i class="right fas fa-angle-left"></i>
-                            </p>
-                        </a>
-                        <ul class="nav nav-treeview">
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-user-lock"></i>
+                        <p>
+                            Área administrativa
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        @if (!Auth::user())
+                            <li class="nav-item">
+                                <a href="{{ route('login') }}" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Login</p>
+                                </a>
+                            </li>
+                        @endif
+                        @if (Auth::user())
                             <li class="nav-item">
                                 <a href="#" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
@@ -92,7 +100,7 @@
                                 </a>
                                 <ul class="nav nav-treeview ml-3">
                                     <li class="nav-item">
-                                        <a href="{{ route('registro.index') }}" class="nav-link">
+                                        <a href="{{ route('registro.relatorios') }}" class="nav-link">
                                             <i class="far fa-circle nav-icon"></i>
                                             <p>Relatório</p>
                                         </a>
@@ -105,9 +113,9 @@
                                     </li>
                                 </ul>
                             </li>
-                        </ul>
-                    </li>
-                @endif
+                        @endif
+                    </ul>
+                </li>
             </ul>
         </nav>
     </div>

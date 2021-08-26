@@ -9,13 +9,13 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0">Cadatro de vacina</h1>
+                            <h1 class="m-0">Editar vacina #{{ $vacina->id }}</h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="{{ route('registro.index') }}">Home</a></li>
                                 <li class="breadcrumb-item">Vacina</li>
-                                <li class="breadcrumb-item active">Registro</li>
+                                <li class="breadcrumb-item active">Editar</li>
                             </ol>
                         </div>
                     </div>
@@ -29,24 +29,25 @@
                             <div class="card card-primary">
                                 <div class="card-header">
                                 </div>
-                                <form action="{{ route('vacina.store') }}" method="POST" id="formStoreVacina">
+                                <form action="{{ route('vacina.update', ['vacina' => $vacina]) }}" method="POST" id="formUpdateVacina">
                                     @csrf
+                                    @method('PUT')
                                     <div class="card-body">
                                         <div class="form-group col-lg-4">
                                             <label for="nome">Nome</label>
-                                            <input type="text" name="nome" class="form-control" id="nome" required>
+                                            <input type="text" value="{{ $vacina->nome }}" name="nome" class="form-control" id="nome" required>
                                         </div>
                                         <div class="form-group col-lg-4">
                                             <label for="fabricante">Fabricante</label>
-                                            <input type="text" name="fabricante" class="form-control" id="fabricante" required>
+                                            <input type="text" value="{{ $vacina->fabricante }}" name="fabricante" class="form-control" id="fabricante" required>
                                         </div>
                                         <div class="form-group col-lg-4">
                                             <label for="doses">Doses</label>
-                                            <input type="number" name="doses" class="form-control" id="doses" required>
+                                            <input type="number" value="{{ $vacina->doses }}" name="doses" class="form-control" id="doses" required>
                                         </div>
                                     </div>
                                     <div class="card-footer">
-                                        <button id="btnStoreVacina" type="submit" class="btn btn-primary">Cadastrar</button>
+                                        <button id="btnUpdateVacina" type="submit" class="btn btn-primary">Editar</button>
                                     </div>
                                 </form>
                             </div>
@@ -63,7 +64,7 @@
     <script>
         $(function() {
             $('.select2').select2();
-            $('#formStoreVacina').validate({
+            $('#formUpdateVacina').validate({
                 rules: {
                     nome: {
                         required: true,
@@ -99,13 +100,13 @@
                 }
             });
 
-            $('#btnStoreVacina').click((event) => {
+            $('#btnUpdateVacina').click((event) => {
                 event.preventDefault();
-                $('#btnStoreVacina').prop('disabled', true);
-                if ($('#formStoreVacina').valid()) {
-                    $('#formStoreVacina').submit();
+                $('#btnUpdateVacina').prop('disabled', true);
+                if ($('#formUpdateVacina').valid()) {
+                    $('#formUpdateVacina').submit();
                 } else {
-                    $('#btnStoreVacina').prop('disabled', false);
+                    $('#btnUpdateVacina').prop('disabled', false);
                 }
             })
         });

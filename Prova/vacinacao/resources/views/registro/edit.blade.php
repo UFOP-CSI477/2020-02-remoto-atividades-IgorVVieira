@@ -87,36 +87,30 @@
             $('.select2').select2();
             $('#formUpdateRegistro').validate({
                 rules: {
-                    pessoa_id: {
+                    nome: {
                         required: true,
                     },
-                    unidade_id: {
+                    bairro: {
                         required: true,
                     },
-                    vacina_id: {
+                    cidade: {
                         required: true,
                     },
-                    dose: {
-                        required: true,
-                    },
-                    data: {
+                    data_nascimento: {
                         required: true,
                     },
                 },
                 messages: {
-                    pessoa_id: {
+                    nome: {
                         required: 'Por favor preencha este campo.',
                     },
-                    unidade_id: {
+                    bairro: {
                         required: 'Por favor preencha este campo.',
                     },
-                    vacina_id: {
+                    cidade: {
                         required: 'Por favor preencha este campo.',
                     },
-                    dose: {
-                        required: 'Por favor preencha este campo.',
-                    },
-                    data: {
+                    data_nascimento: {
                         required: 'Por favor preencha este campo.',
                     },
                 },

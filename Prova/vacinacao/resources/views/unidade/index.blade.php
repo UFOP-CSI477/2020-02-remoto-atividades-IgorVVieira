@@ -42,7 +42,7 @@
                                         <td>{{ $unidade->nome }}</td>
                                         <td>{{ $unidade->bairro }}</td>
                                         <td>{{ $unidade->cidade }}</td>
-                                        <td class="align-center text-center">
+                                        <td>
                                             @if (!$unidade->registros->isEmpty())
                                                 <button title="Editar" disabled class="btn btn-danger btn-circle">
                                                     <i class="fas fa-trash"></i>
@@ -56,6 +56,9 @@
                                                     </button>
                                                 </form>
                                             @endif
+                                            <a title="Editar" href="{{ route('unidade.edit', ['unidade' => $unidade]) }}" type="submit" class="btn btn-info btn-circle">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -66,7 +69,6 @@
                                     <th>Nome</th>
                                     <th>Bairro</th>
                                     <th>Cidade</th>
-                                    <th>Data de nascimento</th>
                                     <th>Ações</th>
                                 </tr>
                             </tfoot>

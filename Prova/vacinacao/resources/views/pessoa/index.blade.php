@@ -43,8 +43,15 @@
                                         <td>{{ $pessoa->nome }}</td>
                                         <td>{{ $pessoa->bairro }}</td>
                                         <td>{{ $pessoa->cidade }}</td>
-                                        <td>{{ $pessoa->data_nascimento }}</td>
+                                        <td>{{ data_br($pessoa->data_nascimento) }}</td>
                                         <td class="align-center text-center">
+                                            <form action="{{ route('pessoa.destroy', ['pessoa' => $pessoa]) }}" method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button title="Excluir" type="submit" class="btn btn-danger btn-circle">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </form>
                                             <a title="Editar" href="{{ route('pessoa.edit', ['pessoa' => $pessoa]) }}" class="btn btn-info btn-circle">
                                                 <i class="fas fa-user-edit"></i>
                                             </a>

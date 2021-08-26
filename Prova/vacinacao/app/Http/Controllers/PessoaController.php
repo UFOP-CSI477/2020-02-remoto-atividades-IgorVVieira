@@ -14,14 +14,9 @@ class PessoaController extends Controller
         return view('pessoa.index', ['pessoas' => $pessoas]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        //
+        return view('pessoa.create');
     }
 
     public function store(Request $request)
@@ -35,6 +30,7 @@ class PessoaController extends Controller
                     'data_nascimento' => $request->data_nascimento,
                 ]);
                 $request->session()->flash('success', 'Pessoa cadastrado com sucesso.');
+                return redirect()->route('pessoa.index');
             } else {
                 $request->session()->flash('warning', 'Você não possui permissão para executar esta ação.');
                 return redirect()->back();
@@ -44,11 +40,6 @@ class PessoaController extends Controller
             $request->session()->flash('error', 'Erro ao cadastrar pessoa, tente novamente.');
             return redirect()->back();
         }
-    }
-
-    public function show($id)
-    {
-        //
     }
 
     public function edit(Pessoa $pessoa)
@@ -83,12 +74,13 @@ class PessoaController extends Controller
         }
     }
 
-    public function destroy(Request $request, $id)
+    public function destroy(Request $request, Pessoa $pessoa)
     {
         try {
             if (Auth::user()) {
-                Pessoa::findOrFail($id)->delete();
-                $request->session()->flash('sucess', 'Pessoa deletada com sucesso.');
+                $pessoa->delete();
+                $request->session()->flash('success', 'Pessoa deletada com sucesso.');
+                return redirect()->back();
             } else {
                 $request->session()->flash('warning', 'Você não possui permissão para executar esta ação.');
                 return redirect()->back();

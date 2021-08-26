@@ -45,7 +45,7 @@
                                         <td>{{ $registro->unidade->nome }}</td>
                                         <td>{{ $registro->vacina->nome }}</td>
                                         <td>{{ $registro->dose }}</td>
-                                        <td>{{ $registro->data }}</td>
+                                        <td>{{ data_br($registro->data) }}</td>
                                         <td class="align-center text-center">
                                             <form action="{{ route('registro.destroy', ['registro' => $registro]) }}" method="POST">
                                                 @csrf
@@ -55,7 +55,7 @@
                                                 </button>
                                             </form>
                                             <a title="Editar" href="{{ route('registro.edit', ['registro' => $registro]) }}" class="btn btn-info btn-circle">
-                                                <i class="fas fa-trash"></i>
+                                                <i class="fas fa-edit"></i>
                                             </a>
                                         </td>
                                     </tr>

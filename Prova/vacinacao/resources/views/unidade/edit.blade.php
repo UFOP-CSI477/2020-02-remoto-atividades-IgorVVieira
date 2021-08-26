@@ -9,13 +9,13 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0">Cadatro de vacina</h1>
+                            <h1 class="m-0">Editar unidade #{{ $unidade->id }}</h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="{{ route('registro.index') }}">Home</a></li>
-                                <li class="breadcrumb-item">Vacina</li>
-                                <li class="breadcrumb-item active">Registro</li>
+                                <li class="breadcrumb-item">Unidade</li>
+                                <li class="breadcrumb-item active">Editar</li>
                             </ol>
                         </div>
                     </div>
@@ -29,24 +29,25 @@
                             <div class="card card-primary">
                                 <div class="card-header">
                                 </div>
-                                <form action="{{ route('vacina.store') }}" method="POST" id="formStoreVacina">
+                                <form action="{{ route('unidade.update', ['unidade'=> $unidade]) }}" method="POST" id="formUpdateUnidade">
                                     @csrf
+                                    @method('PUT')
                                     <div class="card-body">
                                         <div class="form-group col-lg-4">
                                             <label for="nome">Nome</label>
-                                            <input type="text" name="nome" class="form-control" id="nome" required>
+                                            <input type="text" value="{{ $unidade->nome }}" name="nome" class="form-control" id="nome" required>
                                         </div>
                                         <div class="form-group col-lg-4">
-                                            <label for="fabricante">Fabricante</label>
-                                            <input type="text" name="fabricante" class="form-control" id="fabricante" required>
+                                            <label for="bairro">Bairro</label>
+                                            <input type="text" value="{{ $unidade->bairro }}" name="bairro" class="form-control" id="bairro" required>
                                         </div>
                                         <div class="form-group col-lg-4">
-                                            <label for="doses">Doses</label>
-                                            <input type="number" name="doses" class="form-control" id="doses" required>
+                                            <label for="cidade">Cidade</label>
+                                            <input type="text" value="{{ $unidade->cidade }}" name="cidade" class="form-control" id="cidade" required>
                                         </div>
                                     </div>
                                     <div class="card-footer">
-                                        <button id="btnStoreVacina" type="submit" class="btn btn-primary">Cadastrar</button>
+                                        <button id="btnUpdateUnidade" type="submit" class="btn btn-primary">Editar</button>
                                     </div>
                                 </form>
                             </div>
@@ -63,15 +64,15 @@
     <script>
         $(function() {
             $('.select2').select2();
-            $('#formStoreVacina').validate({
+            $('#formUpdateUnidade').validate({
                 rules: {
                     nome: {
                         required: true,
                     },
-                    fabricante: {
+                    bairro: {
                         required: true,
                     },
-                    doses: {
+                    cidade: {
                         required: true,
                     },
                 },
@@ -79,10 +80,10 @@
                     nome: {
                         required: 'Por favor preencha este campo.',
                     },
-                    fabricante: {
+                    bairro: {
                         required: 'Por favor preencha este campo.',
                     },
-                    doses: {
+                    cidade: {
                         required: 'Por favor preencha este campo.',
                     },
                 },
@@ -99,13 +100,13 @@
                 }
             });
 
-            $('#btnStoreVacina').click((event) => {
+            $('#btnUpdateUnidade').click((event) => {
                 event.preventDefault();
-                $('#btnStoreVacina').prop('disabled', true);
-                if ($('#formStoreVacina').valid()) {
-                    $('#formStoreVacina').submit();
+                $('#btnUpdateUnidade').prop('disabled', true);
+                if ($('#formUpdateUnidade').valid()) {
+                    $('#formUpdateUnidade').submit();
                 } else {
-                    $('#btnStoreVacina').prop('disabled', false);
+                    $('#btnUpdateUnidade').prop('disabled', false);
                 }
             })
         });

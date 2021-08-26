@@ -32,6 +32,7 @@
                                     <th>Nome</th>
                                     <th>Fabricante</th>
                                     <th>Doses</th>
+                                    <th>Ações</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -41,6 +42,18 @@
                                         <td>{{ $vacina->nome }}</td>
                                         <td>{{ $vacina->fabricante }}</td>
                                         <td>{{ $vacina->doses }}</td>
+                                        <td class="align-center text-center">
+                                            <form action="{{ route('vacina.destroy', ['vacina' => $vacina]) }}" method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button title="Excluir" type="submit" class="btn btn-danger btn-circle">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </form>
+                                            <a title="Editar" href="{{ route('vacina.edit', ['vacina' => $vacina]) }}" class="btn btn-info btn-circle">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -50,6 +63,7 @@
                                     <th>Nome</th>
                                     <th>Fabricante</th>
                                     <th>Doses</th>
+                                    <th>Ações</th>
                                 </tr>
                             </tfoot>
                         </table>

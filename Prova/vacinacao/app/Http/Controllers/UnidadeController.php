@@ -14,14 +14,9 @@ class UnidadeController extends Controller
         return view('unidade.index', ['unidades' => $unidades]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        //
+        return view('unidade.create');
     }
 
     public function store(Request $request)
@@ -29,11 +24,12 @@ class UnidadeController extends Controller
         try {
             if (Auth::user()) {
                 Unidade::create([
-                    'nome',
-                    'bairro',
-                    'cidade',
+                    'nome' => $request->nome,
+                    'bairro' => $request->bairro,
+                    'cidade' => $request->cidade,
                 ]);
-                $request->session()->flash('sucess', 'Unidade cadastrada com sucesso.');
+                $request->session()->flash('success', 'Unidade cadastrada com sucesso.');
+                return redirect()->route('unidade.index');
             } else {
                 $request->session()->flash('warning', 'Você não possui permissão para executar esta ação.');
                 return redirect()->back();
@@ -45,26 +41,9 @@ class UnidadeController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function edit(Unidade $unidade)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        return view('unidade.edit', ['unidade' => $unidade]);
     }
 
     public function update(Request $request, Unidade $unidade)
@@ -72,11 +51,11 @@ class UnidadeController extends Controller
         try {
             if (Auth::user()) {
                 $unidade->update([
-                    'nome',
-                    'bairro',
-                    'cidade',
+                    'nome' => $request->nome,
+                    'bairro' => $request->bairro,
+                    'cidade' => $request->cidade,
                 ]);
-                $request->session()->flash('sucess', 'Unidade atualziada com sucesso.');
+                $request->session()->flash('success', 'Unidade atualziada com sucesso.');
                 return redirect()->route('unidade.index');
             } else {
                 $request->session()->flash('warning', 'Você não possui permissão para executar esta ação.');

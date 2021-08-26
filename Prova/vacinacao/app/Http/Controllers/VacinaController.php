@@ -41,37 +41,22 @@ class VacinaController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function edit(Vacina $vacina)
     {
-        //
+        return view('vacina.edit', ['vacina' => $vacina]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    public function update(Request $request, $id)
+    public function update(Request $request, Vacina $vacina)
     {
         try {
             if (Auth::user()) {
-                Vacina::findOrFail($id)->update([
+                $vacina->update([
                     'nome' => $request->nome,
                     'fabricante' => $request->fabricante,
                     'doses' => $request->doses,
                 ]);
+            $request->session()->flash('success', 'Vacina atualizada com sucesso.');
+            return redirect()->route('vacina.index');
             } else {
                 $request->session()->flash('warning', 'Você não possui permissão para executar esta ação.');
                 return redirect()->back();
@@ -84,13 +69,13 @@ class VacinaController extends Controller
         }
     }
 
-    public function destroy(Request $request, $id)
+    public function destroy(Request $request, Vacina $vacina)
     {
-
         try {
             if (Auth::user()) {
-                Vacina::findOrFail($id)->delete();
+               $vacina->delete();
                 $request->session()->flash('success', 'Vacina deletada com sucesso.');
+                return redirect()->back();
             } else {
                 $request->session()->flash('warning', 'Você não possui permissão para executar esta ação.');
                 return redirect()->back();
